@@ -1,0 +1,28 @@
+<nav class="navbar">
+    <a class="navbar__ctrl-sidebar" ng-click="$ctrl.toggleCollapse()" href="">
+        <i class="fa fa-bars"></i>
+    </a>
+    <div class="navbar__content">
+        <div class="navbar__breadcrumb">
+            <ndd-breadcrumb>
+                <header>
+                    <a ui-sref="app.massGenerator" class="navbar__title">
+                        <div class="navbar__logo"></div>
+                        <div class="navbar__pipe"></div>
+                        <div class="navbar__text">Ferramenta NFCe</div>
+                    </a>
+                </header>
+            </ndd-breadcrumb>
+        </div>
+        <div class="navbar__options">
+            <div class="navbar__dropdown" title="massGenerator">
+                <ndd-dropdown dropdown-options="$ctrl.dropdownOptions"></ndd-dropdown>
+            </div>
+            <div class="navbar__help " title="Ajuda" ng-click="$ctrl.configOffsidebar.open = !$ctrl.configOffsidebar.open" ng-class="{'navbar__help--active': $ctrl.configOffsidebar.open}">
+                <a ng-click="$ctrl.toggleOffsidebar()" href="">
+                    <i class="fa fa-question"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

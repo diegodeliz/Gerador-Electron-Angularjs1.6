@@ -1,0 +1,118 @@
+@import 'variables';
+@import 'placeholders/clear-fix';
+
+.navbar {
+  position: fixed;
+  background-color: $navbar-bg-color;
+  width: 100%;
+  height: $navbar-height;
+  color: $navbar-color;
+  overflow: visible;
+  z-index: 9;
+
+  a:hover,
+  a:focus {
+    color: $navbar-color;
+  }
+}
+
+.navbar__ctrl-sidebar {
+  display: block;
+  height: 100%;
+  width: $ndd-sidebar-width;
+  padding: 8px 15px;
+  background-color:  $navbar-bg-color - 10;
+  font-size: 14px;
+  float: left;
+
+  &,
+  &:hover,
+  &:focus {
+    color: white !important;
+  }
+
+  &:hover{
+    background-color:  $navbar-bg-color + 10;
+  }
+}
+
+.navbar__content {
+  height: 100%;
+  width: calc(100% - #{$ndd-sidebar-width});
+  float: left;
+}
+
+.navbar__breadcrumb {
+  width: calc(100% - #{$navbar-options-width});
+  float: left;
+}
+
+.navbar__options {
+  float: left;
+  width: $navbar-options-width;
+  height: $navbar-height;
+}
+
+.navbar__title {
+  height: 20px;
+  display: block;
+  margin-left: 3px;
+  @extend %clear-fix;
+}
+
+.navbar__logo {
+  width: 115px;
+  height: 23px;
+  margin-top: -2px;
+  background-image: url($logo-url);
+  background-size: contain;
+  background-repeat: no-repeat;
+  float: left;
+}
+
+.navbar__pipe {
+  width: 1px;
+  background-color: $navbar-color;
+  height: 18px;
+  margin: 0 8px;
+  float: left;
+}
+
+.navbar__text {
+  float: left;
+}
+
+.navbar__dropdown {
+  float: left;
+
+  .ndd-dropdown {
+    width: 80px;
+  }
+
+  .ndd-dropdown__anchor {
+    height: 40px;
+    text-transform: uppercase;
+  }
+
+  .ndd-dropdown__icon-arrow {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+  }
+}
+
+.navbar__help {
+  float: left;
+
+  a {
+    display: block;
+    padding: 2px 20px;
+    font-size: 26px;
+    color: $navbar-color;
+  }
+
+  &--active,
+  &:hover {
+    background-color: $navbar-bg-color-hover;
+  }
+}

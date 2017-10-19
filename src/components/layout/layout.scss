@@ -1,0 +1,76 @@
+// Variables
+@import 'variables';
+$content-background-color: #ffffff;
+$content-padding: 15px 20px;
+
+// Mixins
+@mixin recue($sidebar) {
+  width: calc(100% - #{$sidebar});
+  left: $sidebar;
+}
+
+// Selectors
+*, 
+*:before, 
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+a{
+  text-decoration: none;
+  color: $primary-color;
+}
+
+html,
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  font-size: 14px;
+}
+
+.content {
+  transform: translateY($navbar-height);
+  position: absolute;
+  transition: all .4s;
+  background-color: $content-background-color;
+  display: inline-block;
+  height: calc(100% - #{$navbar-height});
+  @include recue($ndd-sidebar-width);
+
+  &--pinned{
+    @include recue($ndd-sidebar-width-expand);
+  }
+}
+
+.content__grid {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding-right: 5px;
+}
+
+.showSpinner {
+  z-index: 10;
+}
+
+@media (min-width: 768px) {
+  .content__grid {
+    padding: 15px;
+    border-top: 1px solid #d9d9d9;
+    height: calc(100% - 40px);
+
+    &--full {
+      padding: 0;
+      height: 100%;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .content {
+    left: 0;
+    width: 100%;
+  }
+}

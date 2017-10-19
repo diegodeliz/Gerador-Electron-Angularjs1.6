@@ -1,0 +1,26 @@
+/* @ngInject */
+module.exports = function massGeneratorFormController($scope) {
+    var self = this;
+
+    var massGenerator = require('../models/massGenerator.model');
+
+    self.$onInit = function () {
+        self.massGenerator = new massGenerator();
+        self.fiscalTypes = require('../models/massGenerator-type.model');
+
+        self.getData = function () {
+            return self.massGenerator;
+        };
+
+        self.getForm = function () {
+            return $scope.formmassGenerator;
+        };
+    };
+
+    this.$onChanges = function (changes) {
+        if (changes.massGenerator && changes.massGenerator.currentValue) {
+            // Fazemos o copy para garantir a imutabilidade do massGenerator
+            self.massGenerator =  angular.copy(changes.massGenerator.currentValue);
+        }
+    };
+};

@@ -1,0 +1,8 @@
+%clear-fix{
+    &:before,
+    &:after{
+        display: table;
+        clear: both;
+        content: ' ';
+    }
+}

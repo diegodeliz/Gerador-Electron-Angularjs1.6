@@ -1,0 +1,16 @@
+@import 'variables';
+
+$ndd-sidebar-color: #787878;
+$ndd-sidebar-top: $navbar-height;
+$ndd-sidebar-menu-background-color: #f2f2ea;
+$ndd-sidebar-submenu-background-color: rgba(232, 232, 224, 0.95);
+$ndd-sidebar-background-color: transparent;
+$ndd-sidebar-item-focus-background-color: #f2f2ea - 10;
+
+// Width está em variables.scss
+
+@import '~ndd-sidebar/component/ndd-sidebar.scss';
+
+.sidebar__item {
+  font-size: 14px;
+}

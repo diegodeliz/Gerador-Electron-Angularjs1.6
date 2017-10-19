@@ -1,0 +1,8 @@
+@import "~ndd-kendo-grid/component/ndd-kendo-grid.scss";
+
+.ndd-kendo-grid__link{
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+    }
+}

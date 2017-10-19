@@ -1,0 +1,220 @@
+@import 'variables';
+$error-color: #C54848;
+$form-border-main-color: #D4D4D4;
+%border-form {
+    border: 1px solid $form-border-main-color;
+}
+
+%clear-fix {
+    &:before,
+    &:after {
+        display: table;
+        content: '';
+        clear: both;
+    }
+}
+
+.form {
+    position: relative;
+}
+
+.form__wrapper {
+    background-color: white;
+    position: relative;
+    padding-left: 20px;
+    margin: 10px;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098);
+    height: auto;
+    @extend %border-form;
+    @extend %clear-fix;
+    &--loading {
+        .formRegister,
+        .form__footer {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+    }
+}
+
+.form__field {
+    width: 100%;
+    height: 35px;
+    border-radius: 2px;
+    padding-left: 3px;
+    @extend %border-form;
+    &:focus {
+        outline: none;
+        border-color: #9ecaed;
+        box-shadow: 0 0 8px #9ecaed;
+    }
+    &:hover {
+        cursor: text;
+    }
+    &--invalid {
+        border-color: $error-color !important;
+        &:focus {
+            box-shadow: 0 0 2px $error-color !important;
+        }
+    }
+}
+
+.form__label {
+    width: 50%;
+    max-width: 700px;
+    margin-bottom: 15px;
+    &--editor {
+        display: inline-table;
+        width: 100%;
+        max-width: 1800px;
+        padding-right: 30px;
+    }
+}
+
+.form__label-description {
+    width: 100%;
+    margin: 10px 0 5px;
+    display: block;
+    font-weight: 600;
+    &--switch {
+        display: inline-block;
+        width: auto;
+        padding: 0;
+        margin: 6px 5px;
+        vertical-align: top;
+    }
+}
+
+.form__checkbox-label {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+div.form__footer {
+    width: 100%;
+    margin: 35px 0;
+    .close-alert {
+        cursor: pointer;
+    }
+}
+
+.form-editor__spinner {
+    display: block;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    z-index: 9;
+    left: calc(50% - 50px);
+    top: calc(50% - 50px);
+}
+
+.form__message {
+    width: 100%;
+    height: 25px;
+    text-align: center;
+    font-size: 16px;
+    position: relative;
+    padding: 8px 0;
+    &--error {
+        text-align: left;
+        color: $error-color;
+        font-size: 12px;
+    }
+    .message__form__animation {
+        position: absolute;
+        left: 0;
+        right: 0;
+        animation: lower 1s;
+    }
+}
+
+.form__action--wrapper {
+    float: left;
+    height: 35px;
+    margin-right: 20px;
+    position: relative;
+}
+
+.form__footer-action {
+    color: white;
+    min-width: 100px;
+    height: 35px;
+    border: none;
+    cursor: pointer;
+    float: left;
+    &[disabled="disabled"] {
+        background-color: darken($primary-color, 5%);
+        cursor: not-allowed;
+    }
+    &--register {
+        background-color: $primary-color;
+        padding-right: 0;
+        width: calc(100% - 40px);
+        span {
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+            -webkit-background-clip: padding-box;
+            /* for Safari */
+            background-clip: padding-box;
+            /* for IE9+, Firefox 4+, Opera, Chrome */
+            width: 100%;
+            display: block;
+        }
+    }
+    &--cancel {
+        background-color: white;
+        border: 1px solid #CACACA;
+        color: black;
+        padding: 0 40px;
+    }
+}
+
+.form__footer-action-toggle {
+    border: none;
+    height: 100%;
+    width: 40px;
+    background-color: $primary-color;
+    color: white;
+    padding: 0;
+    &:focus {
+        outline: none;
+    }
+    &[disabled="disabled"] {
+        cursor: not-allowed;
+        background-color: darken($primary-color, 5%);
+    }
+}
+
+.form-utils__spinner {
+    display: block;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    z-index: 9;
+    left: 50%;
+    top: calc(50% - 50px);
+}
+
+@media(max-width: 768px) {
+    .form__wrapper {
+        margin: 0;
+        padding: 15px;
+        border: none;
+    }
+    .form__label {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+}
+
+@media(max-width: 350px) {
+    .form__action--wrapper {
+        width: 49%;
+        margin-right: 11px;
+    }
+    .form__footer-action-toggle {
+        width: 28px;
+    }
+    .form__footer-action--cancel {
+        width: 47%;
+    }
+}

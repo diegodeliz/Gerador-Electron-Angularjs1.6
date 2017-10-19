@@ -1,0 +1,5 @@
+@import 'variables';
+
+$ndd-dropdown-background-color-hover: $navbar-bg-color-hover;
+
+@import '~ndd-dropdown/component/ndd-dropdown.scss'

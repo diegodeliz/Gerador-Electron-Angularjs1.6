@@ -1,0 +1,13 @@
+<navbar config-offsidebar="$ctrl.configOffsidebar" ></navbar>
+
+ <ndd-sidebar header="false">
+    <sidebar-menu>
+        <sidebar-option href="app.massGenerator" text="Gerador De Massa" icon="fa fa-user fa-2x"></sidebar-option>
+    </sidebar-menu>
+</ndd-sidebar>
+
+<div class="content" ng-class="{'content--pinned': $ctrl.pinned}">
+    <ui-view></ui-view>
+</div>
+
+<offsidebar options="$ctrl.configOffsidebar"></offsidebar>

@@ -1,0 +1,7 @@
+@import 'variables';
+
+$offsidebar-background-color: $offsidebar-bg-color;
+$offsidebar-border-left: none;
+$offsidebar-width: 320px;
+
+@import '~ndd-offsidebar/component/ndd-offsidebar.scss';

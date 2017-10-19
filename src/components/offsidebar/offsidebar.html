@@ -1,0 +1,30 @@
+<ndd-offsidebar class="offsidebar__ndd-offsidebar" options="$ctrl.options">
+	<article class="offsidebar__body">
+		<header>
+			<h4>
+				<b>Ajuda</b>
+			</h4>
+		</header>
+		<div class="input-group offsidebar__input-group">
+			<input type="text" class="form-control" ng-model="nameFilter" placeholder="Como podemos ajudar?">
+			<span class="input-group-addon">
+				<i class="fa fa-search"></i>
+			</span>
+		</div>
+		<h5 class="offsidebar__subtitle">
+			Perguntas Frequentes
+		</h5>
+		<div ng-repeat="faq in $ctrl.faqs | filter: nameFilter" class="offsidebar__faq-ask">
+			<div class="offsidebar__faq" ng-click="isCollapsed = !isCollapsed" ng-class="{'offsidebar__faq-active': isCollapsed}">
+				<div class="offsidebar__faq-description">
+					<span>{{faq.name}}</span>
+				</div>
+				<div class="offsidebar__faq-icon pull-right">
+					<i class="fa fa-plus" ng-hide="isCollapsed"></i>
+					<i class="fa fa-minus" ng-show="isCollapsed"></i>
+				</div>
+			</div>
+			<div class="offsidebar__faq-content" uib-collapse="!isCollapsed">{{faq.content}}</div>
+		</div>
+	</article>
+</ndd-offsidebar>
