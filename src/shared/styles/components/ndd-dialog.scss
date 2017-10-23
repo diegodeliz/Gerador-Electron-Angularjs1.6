@@ -1,0 +1,14 @@
+@import 'variables';
+
+.ngdialog-content {
+	header {
+		display: inline-block;
+		width: 100%;
+		position: relative;
+		color: white;
+		font-family: "Source Sans Pro", sans-serif;
+		background-color: $primary-color;
+		padding: 15px;
+		padding-left: 10px;
+	}
+}

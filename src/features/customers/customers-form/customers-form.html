@@ -1,0 +1,35 @@
+<form name="formCustomers" class="form" novalidate>
+    <label class="form__label-description">Nome</label>
+    <input type="text" name="name" ng-model="$ctrl.customer.name" class="form__field" required placeholder="Nome do cliente"
+        autocomplete="off" ng-class="{'form__field--invalid': formCustomers.name.$invalid && formCustomers.name.$dirty}">
+    <br>
+    <div ng-messages="formCustomers.name.$error" role="alert">
+        <div class="form__message form__message--error" ng-show="formCustomers.name.$dirty" ng-message="required">É preciso um nome para o cliente</div>
+    </div>
+    <br>
+    <label class="form__label-description">Código Fiscal</label>
+    <input type="number" name="fiscalCode" ng-model="$ctrl.customer.fiscalCode" required class="form__field" placeholder="Código Fiscal"
+        autocomplete="off" ng-class="{'form__field--invalid': formCustomers.fiscalCode.$invalid && !formCustomers.email.$pristine && formCustomers.fiscalCode.$touched}"><br>
+    <div ng-messages="formCustomers.fiscalCode.$error" role="alert">
+        <div class="form__message form__message--error" ng-show="formCustomers.fiscalCode.$dirty" ng-message="required">É preciso um código fiscal para um clinte.</div>
+    </div>
+    <br>
+    <label class="form__label-description">Email</label>
+    <input type="email" name="email" ng-model="$ctrl.customer.email" required class="form__field" placeholder="Email" autocomplete="off"
+        ng-class="{'form__field--invalid': formCustomers.email.$invalid && !formCustomers.email.$pristine && formCustomers.email.$touched}"><br>
+    <div ng-messages="formCustomers.email.$error" role="alert">
+        <div class="form__message form__message--error" ng-show="formCustomers.email.$dirty" ng-message="required">É preciso um email para o cliente.</div>
+        <div class="form__message form__message--error" ng-show="!formCustomers.email.$error.required && formCustomers.email.$touched"
+            ng-message="email">Email Inválido.</div>
+    </div>
+    <br>
+    <label class="form__label-description">Tipo Fiscal</label>
+    <select ng-options="option.value as option.description for option in $ctrl.fiscalTypes" ng-model="$ctrl.customer.fiscalType"
+        class="form__field" name="fiscalType" required ng-class="{'form__field--invalid': formCustomers.fiscalType.$invalid && formCustomers.fiscalType.$dirty}"></select>
+    <div ng-messages="formCustomers.fiscalType.$error" role="alert">
+        <div ng-show="formCustomers.fiscalType.$invalid && formCustomers.fiscalType.$dirty" class="form__message form__message--error">O tipo é obrigatório</div>
+    </div>
+    <br>
+    <switch id="enabled" name="status" ng-model="$ctrl.customer.isActivated" class="green"></switch>
+    <label class="form__label-description form__label-description--switch">{{ $ctrl.customer.isActivated ? 'Ativo' : 'Desativado' }}</label>
+</form>

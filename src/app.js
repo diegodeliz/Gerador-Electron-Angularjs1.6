@@ -1,3 +1,4 @@
+require('expose?jQuery!expose?$!jquery');
 require('./shared/polyfill/jquery-2.polyfill');
 
 var angular = require('angular');
@@ -9,7 +10,8 @@ var app = angular.module('app', [
     'cfp.loadingBar',
     'ngLocale',
     require('oclazyload'),
-    require('angular-ui-router')
+    require('angular-ui-router'),
+    require('shared/configuration/configuration.module.js')
 ]);
 
 // Configurações padrão da aplicação

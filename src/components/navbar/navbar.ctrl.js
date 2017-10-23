@@ -15,6 +15,10 @@ module.exports = function navbarController( $state, nddSidebarService) {
                     {
                         text: 'Gerador',
                         action: tomassGenerator
+                    },
+                    {
+                        text: 'Clientes',
+                        action: toCustomers
                     }]
             },
             {
@@ -26,5 +30,9 @@ module.exports = function navbarController( $state, nddSidebarService) {
 
     function tomassGenerator() {
         $state.go('app.massGenerator.list');
+    }
+
+    function toCustomers() {
+        $state.go('app.customers.list');
     }
 }

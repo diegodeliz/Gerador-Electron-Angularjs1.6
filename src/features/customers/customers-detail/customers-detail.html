@@ -1,0 +1,15 @@
+<div class="ndd-entity-editor__header">
+    <titlebar titlebar-title="$ctrl.customer.name" titlebar-icon="'fa fa-user'">
+        <titlebar-info>
+            <titlebar-info-item titlebar-info-text="$ctrl.customer.email" titlebar-info-icon="'fa fa-envelope-o'"> </titlebar-action-item>
+        </titlebar-info>
+        <titlebar-action>
+            <titlebar-action-item titlebar-action-text="'Excluir'" ng-click="$ctrl.remove()"  titlebar-action-icon="'fa fa-trash'"></titlebar-action-item>
+            <titlebar-action-item ui-sref="app.customers.list" titlebar-action-icon="'fa fa-close'"></titlebar-action-item>        
+        </titlebar-action>
+    </titlebar>
+    <tabs-bar options="$ctrl.tabOptions"></tabs-bar>
+</div>
+<div class="ndd-entity-editor__content">
+    <ui-view></ui-view>
+</div>
