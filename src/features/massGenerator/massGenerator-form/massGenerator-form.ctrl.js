@@ -2,10 +2,10 @@
 module.exports = function massGeneratorFormController($scope) {
     var self = this;
 
-    var massGenerator = require('../models/massGenerator.model');
+    var MassGenerator = require('../models/massGenerator.model');
 
     self.$onInit = function () {
-        self.massGenerator = new massGenerator();
+        self.massGenerator = new MassGenerator();
         self.fiscalTypes = require('../models/massGenerator-type.model');
 
         self.getData = function () {
@@ -13,7 +13,7 @@ module.exports = function massGeneratorFormController($scope) {
         };
 
         self.getForm = function () {
-            return $scope.formmassGenerator;
+            return $scope.formMassGenerator;
         };
     };
 

@@ -1,4 +1,4 @@
-function massGenerator() {
+function MassGenerator() {
     this.id = 0;
     this.name = '';
     this.email = '';
@@ -7,4 +7,4 @@ function massGenerator() {
     this.ficalCode = 0;
 }
 
-module.exports = massGenerator;
+module.exports = MassGenerator;

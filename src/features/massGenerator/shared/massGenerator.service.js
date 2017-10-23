@@ -1,14 +1,14 @@
 /* @ngInject */
 module.exports = function massGeneratorService(appConfig, $http, nddQueryGeneratorFactory) {
     return {
-        getAllmassGenerator: getAllmassGenerator,
+        getAllMassGenerator: getAllMassGenerator,
         getById: getById,
-        addmassGenerator: addmassGenerator,
-        removemassGenerator: removemassGenerator,
-        editmassGenerator: editmassGenerator
+        addMassGenerator: addMassGenerator,
+        removeMassGenerator: removeMassGenerator,
+        editMassGenerator: editMassGenerator
     };
 
-    function getAllmassGenerator(parms) {
+    function getAllMassGenerator(parms) {
         return $http.get(appConfig.apiUrl + 'massGenerator' + query).then(function (result) {
             return result.data.items;
         });
@@ -20,19 +20,19 @@ module.exports = function massGeneratorService(appConfig, $http, nddQueryGenerat
         });
     }
 
-    function addmassGenerator(massGenerator) {
+    function addMassGenerator(massGenerator) {
         return $http.post(appConfig.apiUrl + 'massGenerator', massGenerator).then(function (data) {
             return data.status;
         });
     }
 
-    function editmassGenerator(massGenerator) {
+    function editMassGenerator(massGenerator) {
         return $http.put(appConfig.apiUrl + 'massGenerator', JSON.stringify(massGenerator)).then(function (data) {
             return data.status;
         });
     }
 
-    function removemassGenerator(id) {
+    function removeMassGenerator(id) {
         return $http.delete(appConfig.apiUrl + 'massGenerator/' + id).then(function (data) {
             return data.status;
         });

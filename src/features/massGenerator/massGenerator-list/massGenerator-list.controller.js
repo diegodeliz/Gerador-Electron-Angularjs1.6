@@ -49,6 +49,17 @@ module.exports = function massGeneratorListController(massGeneratorService, $sta
     this.$onInit = function () {
         grid = $('#massGeneratorGrid #grid');
 
+        self.gridHeaderOptions = {
+            options: [{
+                    text: 'Novo',
+                    icon: 'fa fa-plus',
+                    action: function(){
+                        $state.go('app.massGenerator.create');
+                    }
+                }
+            ]
+        };
+
         self.kendoGridOptions = {
             dataSource: dataSource,
             selectable: 'multiple, row',
@@ -95,21 +106,6 @@ module.exports = function massGeneratorListController(massGeneratorService, $sta
             ]
         };
 
-        self.gridFilterOptions = {
-            advanced: {
-                columns: require('./values/massGenerator-list-kendo-filter-options.js')
-            },
-            searchbar: {
-                textSearchbar: 'Pesquisar',
-                iconSearchbar: 'fa fa-search',
-                filter: [{
-                    prop: 'name',
-                    field: 'name',
-                    operator: 'contains'
-                }]
-            }
-        };
-
         self.gridHeaderOptions = {
             options: [{
                     text: 'Novo',
@@ -149,7 +145,7 @@ module.exports = function massGeneratorListController(massGeneratorService, $sta
 
     // Header Actions
     function addMassGeneratorAction() {
-        $state.go('app.massGenerator.register');
+        $state.go('app.massGenerator.create');
     }
 
     function detailMassGeneratorAction(selectedMassGenerator) {
@@ -163,7 +159,7 @@ module.exports = function massGeneratorListController(massGeneratorService, $sta
             title: 'Confirmar Exclusão',
             messageText: 'Deseja realmente excluir ? Essa ação não pode ser desfeita.',
             buttonConfirmText: 'Confirmar',
-            buttonCancelText: 'Cancelar' // texto do botão de cancelar
+            buttonCancelText: 'Cancelar' // texto 
         }, function () {
             deleteOneByOne(selectedMassGenerator);
         });

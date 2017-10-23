@@ -159,7 +159,7 @@ module.exports = function customersListController(customersService, $state, nddK
             title: 'Confirmar Exclusão',
             messageText: 'Deseja realmente excluir ? Essa ação não pode ser desfeita.',
             buttonConfirmText: 'Confirmar',
-            buttonCancelText: 'Cancelar' // texto do botão de cancelar
+            buttonCancelText: 'Cancelar' // texto 
         }, function () {
             deleteOneByOne(selectedCustomers);
         });

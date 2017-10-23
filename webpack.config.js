@@ -30,7 +30,7 @@ var ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 var isDev = false;
 var isTest = false;
 var version = require('./package.json').version; // default value
-var publicPath = './'; // default value
+var publicPath = '/'; // default value
 
 module.exports = WebpackConfig;
 

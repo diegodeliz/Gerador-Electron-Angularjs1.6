@@ -37,7 +37,7 @@ module.exports = function massGeneratorDashboardController($scope, $state, massG
         }
         var massGenerator = self.formGetData();
         self.isLoading = true;
-        massGeneratorService.editmassGenerator(massGenerator).then(function () {
+        massGeneratorService.editMassGenerator(massGenerator).then(function () {
             self.isLoading = true;
             self.isEditing = false;
             formUtilsService.setPristine(form);

@@ -18,6 +18,6 @@ massGeneratorModule
     .component('massGeneratorCreate', require('./massGenerator-create/massGenerator-create.component'))
     .component('massGeneratorForm', require('./massGenerator-form/massGenerator-form.component'))
     .component('massGeneratorDetail', require('./massGenerator-detail/massGenerator-detail.component'))
-    .component('massGeneratorDashboard', require('./massGenerator-dashboard/massGenerator-dashboard.component'));
+    .component('massGeneratorDashboard', require('./massGenerator-dashboard/massGenerator-dashboard.component'))
 
 module.exports = massGeneratorModule.name;

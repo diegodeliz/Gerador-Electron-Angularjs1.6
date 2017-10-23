@@ -1,7 +1,7 @@
 /* @ngInject */
-module.exports = function massGeneratorCreateCtrl($scope, $state, massGeneratorService, nddConfirmDialogService, formUtilsService) {
+module.exports = function customerCreateCtrl($scope, $state, customersService, nddConfirmDialogService, formUtilsService) {
     var self = this;
-    var MassGenerator = require('../models/massGenerator.model');
+    var Customer = require('../models/customer.model');
     
     this.$onInit = function () {
         self.title = 'Cadastrar Cliente';
@@ -9,7 +9,7 @@ module.exports = function massGeneratorCreateCtrl($scope, $state, massGeneratorS
     };
 
     this.cancel = function () {
-        $state.go('app.massGenerator.list');
+        $state.go('app.customers.list');
     };
 
     this.save = function () {
@@ -19,20 +19,20 @@ module.exports = function massGeneratorCreateCtrl($scope, $state, massGeneratorS
             formUtilsService.setTouched(form);
             return;
         }
-        var massGenerator = self.formGetData();
+        var customer = self.formGetData();
         self.isLoading = true;
-        massGeneratorService.addMassGenerator(massGenerator).then(function () {
+        customersService.addCustomer(customer).then(function () {
             self.isLoading = false;
             nddConfirmDialogService.showDialog({
                 title: 'Cliente foi cadastrado.',
-                messageText: 'Cliente ' + massGenerator.name + ' cadastrado (a) com sucesso.',
+                messageText: 'Cliente ' + customer.name + ' cadastrado (a) com sucesso.',
                 buttonConfirmText: 'Ir para clientes.',
                 hideCancel: true,
                 showClose: false,
                 closeByDocument: false,
                 closeByEscape: false
             }, function () {
-                $state.go('app.massGenerator.list');
+                $state.go('app.customers.list');
             });
         }, function () {
             self.isLoading = false;

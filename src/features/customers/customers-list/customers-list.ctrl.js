@@ -1,6 +1,6 @@
 /* @ngInject */
 /* global kendo */
-module.exports = function massGeneratorListController(massGeneratorService, $state, nddKendoGridApiService, nddConfirmDialogService, appConfig) {
+module.exports = function customersListController(customersService, $state, nddKendoGridApiService, nddConfirmDialogService, appConfig) {
     var self = this;
     var grid;
 
@@ -8,7 +8,7 @@ module.exports = function massGeneratorListController(massGeneratorService, $sta
         type: 'odata-v4',
         transport: {
             read: {
-                url: appConfig.apiUrl + 'massGenerator'
+                url: appConfig.apiUrl + 'customers'
             }
         },
         schema: {
@@ -47,7 +47,7 @@ module.exports = function massGeneratorListController(massGeneratorService, $sta
     });
 
     this.$onInit = function () {
-        grid = $('#massGeneratorGrid #grid');
+        grid = $('#customersGrid #grid');
 
         self.kendoGridOptions = {
             dataSource: dataSource,
@@ -97,7 +97,7 @@ module.exports = function massGeneratorListController(massGeneratorService, $sta
 
         self.gridFilterOptions = {
             advanced: {
-                columns: require('./values/massGenerator-list-kendo-filter-options.js')
+                columns: require('./values/customers-list-kendo-filter-options.js')
             },
             searchbar: {
                 textSearchbar: 'Pesquisar',
@@ -114,19 +114,19 @@ module.exports = function massGeneratorListController(massGeneratorService, $sta
             options: [{
                     text: 'Novo',
                     icon: 'fa fa-plus',
-                    action: addMassGeneratorAction,
+                    action: addCustomerAction,
                     hideNavMobile: true
                 },
                 {
                     text: 'Excluir',
                     icon: 'fa fa-remove',
-                    action: excludeMassGeneratorAction,
+                    action: excludeCustomerAction,
                     needSelectRow: true
                 },
                 {
                     text: 'Abrir',
                     icon: 'fa fa-expand',
-                    action: detailMassGeneratorAction,
+                    action: detailCustomerAction,
                     needSelectRow: true,
                     needUniqueRow: true
                 }
@@ -142,43 +142,43 @@ module.exports = function massGeneratorListController(massGeneratorService, $sta
     };
 
     this.open = function (id) {
-        $state.go('app.massGenerator.detail.dashboard', {
+        $state.go('app.customers.detail.dashboard', {
             id: id
         });
     };
 
     // Header Actions
-    function addMassGeneratorAction() {
-        $state.go('app.massGenerator.register');
+    function addCustomerAction() {
+        $state.go('app.customers.register');
     }
 
-    function detailMassGeneratorAction(selectedMassGenerator) {
-        $state.go('app.massGenerator.detail.dashboard', {
-            id: selectedMassGenerator[0].id
+    function detailCustomerAction(selectedCustomers) {
+        $state.go('app.customers.detail.dashboard', {
+            id: selectedCustomers[0].id
         });
     }
 
-    function excludeMassGeneratorAction(selectedMassGenerator) {
+    function excludeCustomerAction(selectedCustomers) {
         nddConfirmDialogService.showDialog({
             title: 'Confirmar Exclusão',
             messageText: 'Deseja realmente excluir ? Essa ação não pode ser desfeita.',
             buttonConfirmText: 'Confirmar',
             buttonCancelText: 'Cancelar' // texto do botão de cancelar
         }, function () {
-            deleteOneByOne(selectedMassGenerator);
+            deleteOneByOne(selectedCustomers);
         });
     }
 
     // private methods
-    function deleteOneByOne(selectedMassGenerator) {
+    function deleteOneByOne(selectedCustomers) {
         kendo.ui.progress(grid, true);
-        massGeneratorService.removeMassGenerator(selectedMassGenerator[0].id).then(function (data) {
-            selectedMassGenerator.splice(0, 1);
-            if (selectedMassGenerator.length > 0) {
-                deleteOneByOne(selectedMassGenerator);
+        customersService.removeCustomer(selectedCustomers[0].id).then(function (data) {
+            selectedCustomers.splice(0, 1);
+            if (selectedCustomers.length > 0) {
+                deleteOneByOne(selectedCustomers);
             } else {
                 kendo.ui.progress(grid, false);
-                nddKendoGridApiService.reload('massGeneratorGrid');
+                nddKendoGridApiService.reload('customersGrid');
             }
         }, onDeleteError);
     }

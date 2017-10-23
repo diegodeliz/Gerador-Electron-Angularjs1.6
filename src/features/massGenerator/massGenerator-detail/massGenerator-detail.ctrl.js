@@ -26,12 +26,12 @@ module.exports = function massGeneratorDetailController($scope, $stateParams, $s
             messageText: 'Deseja realmente excluir ? Essa operação não pode ser desfeita.',
             buttonConfirmText: 'Remover',
             buttonCancelText: 'Cancelar'
-        }, removemassGenerator);
+        }, removeMassGenerator);
     };
 
-    function removemassGenerator() {
+    function removeMassGenerator() {
         self.isLoading = true;
-        massGeneratorService.removemassGenerator(self.massGenerator.id).then(function (data) {
+        massGeneratorService.removeMassGenerator(self.massGenerator.id).then(function (data) {
             nddConfirmDialogService.showDialog({
                 title: 'Operação realizada',
                 messageText: 'Cliente excluído com sucesso !',

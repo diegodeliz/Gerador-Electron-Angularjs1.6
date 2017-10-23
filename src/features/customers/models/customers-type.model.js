@@ -1,10 +1,10 @@
 module.exports = [
     {
-        value: '0',
+        value: 'Individual',
         description: 'Individual'
     },
     {
-        value: '1',
+        value: 'Empresarial',
         description: 'Empresarial'
     }
 ];
