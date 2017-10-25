@@ -1,0 +1,48 @@
+<div class="ndd-entity-editor__form-content">
+    <div class="row" ng-if="!$ctrl.isEditing && !$ctrl.isLoading">
+        <div class="col-sm-6">
+            <h4 class="ndd-entity-editor__form-title">DADOS CADASTRAIS</h4>
+            <div class="col-sm-12 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Nome</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.name"></span>
+            </div>
+            <div class="col-sm-6 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Identificação</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.id"></span>
+            </div>
+            <div class="col-sm-6 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Email</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.email"></span>
+            </div>
+            <div class="col-sm-6 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Ativo</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.isActivated"></span>
+            </div>
+            <div class="col-sm-6 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Tipo Fiscal</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.fiscalType"></span>
+            </div>
+            <div class="col-sm-6 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Código Fiscal</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.fiscalCode"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="$ctrl.isEditing && !$ctrl.isLoading">
+        <div class="col-sm-6">
+            <generator-form generator="$ctrl.generator" get-data="$ctrl.formGetData" get-form="$ctrl.getForm"></generator-form>
+        </div>
+    </div>
+    <img ng-if="$ctrl.isLoading" class="form-utils__spinner" src="~shared/images/spinner.gif" alt="">
+</div>
+<div class="ndd-entity-editor__form-footer">
+    <button ng-if="$ctrl.isEditing" ng-click="$ctrl.save()" class="ndd-button ndd-button--highlighted" type="button">Salvar</button>
+    <button ng-if="!$ctrl.isEditing" ng-click="$ctrl.edit()" class="ndd-button ndd-button--highlighted" type="button">Editar</button>
+    <button ng-click="$ctrl.cancel()" class="ndd-button" type="button">Cancelar</button>
+</div>

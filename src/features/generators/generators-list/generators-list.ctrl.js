@@ -1,6 +1,6 @@
 /* @ngInject */
 /* global kendo */
-module.exports = function customersListController(customersService, $state, nddKendoGridApiService, nddConfirmDialogService, appConfig) {
+module.exports = function generatorsListController(generatorsService, $state, nddKendoGridApiService, nddConfirmDialogService, appConfig) {
     var self = this;
     var grid;
 
@@ -8,7 +8,7 @@ module.exports = function customersListController(customersService, $state, nddK
         type: 'odata-v4',
         transport: {
             read: {
-                url: appConfig.apiUrl + 'customers'
+                url: appConfig.apiUrl + 'generators'
             }
         },
         schema: {
@@ -47,7 +47,7 @@ module.exports = function customersListController(customersService, $state, nddK
     });
 
     this.$onInit = function () {
-        grid = $('#customersGrid #grid');
+        grid = $('#generatorsGrid #grid');
 
         self.kendoGridOptions = {
             dataSource: dataSource,
@@ -98,7 +98,7 @@ module.exports = function customersListController(customersService, $state, nddK
 
         self.gridFilterOptions = {
             advanced: {
-                columns: require('./values/customers-list-kendo-filter-options.js')
+                columns: require('./values/generators-list-kendo-filter-options.js')
             },
             searchbar: {
                 textSearchbar: 'Pesquisar',
@@ -115,19 +115,19 @@ module.exports = function customersListController(customersService, $state, nddK
             options: [{
                     text: 'Novo',
                     icon: 'fa fa-plus',
-                    action: addCustomerAction,
+                    action: addGeneratorAction,
                     hideNavMobile: true
                 },
                 {
                     text: 'Excluir',
                     icon: 'fa fa-remove',
-                    action: excludeCustomerAction,
+                    action: excludeGeneratorAction,
                     needSelectRow: true
                 },
                 {
                     text: 'Abrir',
                     icon: 'fa fa-expand',
-                    action: detailCustomerAction,
+                    action: detailGeneratorAction,
                     needSelectRow: true,
                     needUniqueRow: true
                 }
@@ -143,49 +143,49 @@ module.exports = function customersListController(customersService, $state, nddK
     };
 
     function onEditAction(selected) {
-        $state.go('app.customers.detail.dashboard', {
+        $state.go('app.generators.detail.dashboard', {
             id: selected.id
         });
     }
 
     this.open = function (id) {
-        $state.go('app.customers.detail.dashboard', {
+        $state.go('app.generators.detail.dashboard', {
             id: id
         });
     };
 
     // Header Actions
-    function addCustomerAction() {
-        $state.go('app.customers.register');
+    function addGeneratorAction() {
+        $state.go('app.generators.register');
     }
 
-    function detailCustomerAction(selectedCustomers) {
-        $state.go('app.customers.detail.dashboard', {
-            id: selectedCustomers[0].id
+    function detailGeneratorAction(selectedGenerators) {
+        $state.go('app.generators.detail.dashboard', {
+            id: selectedGenerators[0].id
         });
     }
 
-    function excludeCustomerAction(selectedCustomers) {
+    function excludeGeneratorAction(selectedGenerators) {
         nddConfirmDialogService.showDialog({
             title: 'Confirmar Exclusão',
             messageText: 'Deseja realmente excluir ? Essa ação não pode ser desfeita.',
             buttonConfirmText: 'Confirmar',
             buttonCancelText: 'Cancelar' // texto do botão de cancelar
         }, function () {
-            deleteOneByOne(selectedCustomers);
+            deleteOneByOne(selectedGenerators);
         });
     }
 
     // private methods
-    function deleteOneByOne(selectedCustomers) {
+    function deleteOneByOne(selectedGenerators) {
         kendo.ui.progress(grid, true);
-        customersService.removeCustomer(selectedCustomers[0].id).then(function (data) {
-            selectedCustomers.splice(0, 1);
-            if (selectedCustomers.length > 0) {
-                deleteOneByOne(selectedCustomers);
+        generatorsService.removeGenerator(selectedGenerators[0].id).then(function (data) {
+            selectedGenerators.splice(0, 1);
+            if (selectedGenerators.length > 0) {
+                deleteOneByOne(selectedGenerators);
             } else {
                 kendo.ui.progress(grid, false);
-                nddKendoGridApiService.reload('customersGrid');
+                nddKendoGridApiService.reload('generatorsGrid');
             }
         }, onDeleteError);
     }
