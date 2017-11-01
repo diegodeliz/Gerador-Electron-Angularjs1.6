@@ -1,35 +1,8 @@
 <form name="formGenerators" class="form" novalidate>
-    <label class="form__label-description">Nome</label>
-    <input type="text" name="name" ng-model="$ctrl.generator.name" class="form__field" required placeholder="Nome do cliente"
-        autocomplete="off" ng-class="{'form__field--invalid': formGenerators.name.$invalid && formGenerators.name.$dirty}">
-    <br>
-    <div ng-messages="formGenerators.name.$error" role="alert">
-        <div class="form__message form__message--error" ng-show="formGenerators.name.$dirty" ng-message="required">É preciso um nome para o cliente</div>
+    <label class="form__label-description">Tarefa</label>    
+    <input type="text" name="text" class="form__field" placeholder="Registrar Bugs" required ng-model="$ctrl.generator.text"
+        autocomplete="off" ng-class="{'form__field--invalid': formGenerators.text.$invalid && formGenerators.text.$dirty}">   
+    <div ng-messages="formGenerators.todo.$error" role="alert">
+        <div class="form__message form__message--error" ng-show="formGenerators.text.$dirty" ng-message="required">É preciso um nome para o Agente</div>
     </div>
-    <br>
-    <label class="form__label-description">Código Fiscal</label>
-    <input type="number" name="fiscalCode" ng-model="$ctrl.generator.fiscalCode" required class="form__field" placeholder="Código Fiscal"
-        autocomplete="off" ng-class="{'form__field--invalid': formGenerators.fiscalCode.$invalid && !formGenerators.email.$pristine && formGenerators.fiscalCode.$touched}"><br>
-    <div ng-messages="formGenerators.fiscalCode.$error" role="alert">
-        <div class="form__message form__message--error" ng-show="formGenerators.fiscalCode.$dirty" ng-message="required">É preciso um código fiscal para um cliente.</div>
-    </div>
-    <br>
-    <label class="form__label-description">Email</label>
-    <input type="email" name="email" ng-model="$ctrl.generator.email" required class="form__field" placeholder="Email" autocomplete="off"
-        ng-class="{'form__field--invalid': formGenerators.email.$invalid && !formGenerators.email.$pristine && formGenerators.email.$touched}"><br>
-    <div ng-messages="formGenerators.email.$error" role="alert">
-        <div class="form__message form__message--error" ng-show="formGenerators.email.$dirty" ng-message="required">É preciso um email para o cliente.</div>
-        <div class="form__message form__message--error" ng-show="!formGenerators.email.$error.required && formGenerators.email.$touched"
-            ng-message="email">Email Inválido.</div>
-    </div>
-    <br>
-    <label class="form__label-description">Tipo Fiscal</label>
-    <select ng-options="option.value as option.description for option in $ctrl.fiscalTypes" ng-model="$ctrl.generator.fiscalType"
-        class="form__field" name="fiscalType" required ng-class="{'form__field--invalid': formGenerators.fiscalType.$invalid && formGenerators.fiscalType.$dirty}"></select>
-    <div ng-messages="formGenerators.fiscalType.$error" role="alert">
-        <div ng-show="formGenerators.fiscalType.$invalid && formGenerators.fiscalType.$dirty" class="form__message form__message--error">O tipo é obrigatório</div>
-    </div>
-    <br>
-    <switch id="enabled" name="status" ng-model="$ctrl.generator.isActivated" class="green"></switch>
-    <label class="form__label-description form__label-description--switch">{{ $ctrl.generator.isActivated ? 'Ativo' : 'Desativado' }}</label>
 </form>

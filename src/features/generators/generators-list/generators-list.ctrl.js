@@ -1,39 +1,28 @@
 /* @ngInject */
 /* global kendo */
-module.exports = function generatorsListController(generatorsService, $state, nddKendoGridApiService, nddConfirmDialogService, appConfig) {
+module.exports = function generatorsListController($scope, Todos, $state, nddKendoGridApiService, nddConfirmDialogService) {
     var self = this;
     var grid;
 
     var dataSource = new window.kendo.data.DataSource({
-        type: 'odata-v4',
         transport: {
             read: {
-                url: appConfig.apiUrl + 'generators'
-            }
+            	url: 'http://localhost:8080/api/todos',
+				type: "get",
+				dataType: "json"
+			},
         },
         schema: {
-            data: 'items',
+            data: '',
             total: 'count',
             aggregates: 'aggregates',
             model: {
-                Id: 'id',
+                Id: '_id',
                 fields: {
                     Id: {
-                        type: 'number'
-                    },
-                    Name: {
                         type: 'string'
                     },
-                    Email: {
-                        type: 'string'
-                    },
-                    FicalCode: {
-                        type: 'string'
-                    },
-                    Status: {
-                        type: 'string'
-                    },
-                    TypeFical: {
+                    Text: {
                         type: 'string'
                     }
                 }
@@ -67,31 +56,14 @@ module.exports = function generatorsListController(generatorsService, $state, nd
             },
             resizable: true,
             columns: [{
-                    field: 'id',
+                    field: '_id',
                     title: 'Id',
                     width: 60
                 },
                 {
-                    field: 'name',
-                    title: 'Nome',
-                    template: '<a class="ndd-kendo-grid__link" ng-click="$parent.$parent.$ctrl.open(#:id#)">#:name#</a>'
-                },
-                {
-                    field: 'fiscalCode',
-                    title: 'Código Fiscal'
-                },
-                {
-                    field: 'email',
-                    title: 'E-mail'
-                },
-                {
-                    field: 'fiscalType',
-                    title: 'Tipo Fical'
-                },
-                {
-                    field: 'isActivated',
-                    title: 'Status',
-                    template: '<span>#:isActivated ? "Ativo": "Desativado"#</span>'
+                    field: 'text',
+                    title: 'Text',
+                    template: '<a class="ndd-kendo-grid__link" ng-click="$parent.$parent.$ctrl.open#:_id#">#:text#</a>'
                 }
             ]
         };
@@ -144,13 +116,13 @@ module.exports = function generatorsListController(generatorsService, $state, nd
 
     function onEditAction(selected) {
         $state.go('app.generators.detail.dashboard', {
-            id: selected.id
+            id: selected._id
         });
     }
 
-    this.open = function (id) {
+    this.open = function (_id) {
         $state.go('app.generators.detail.dashboard', {
-            id: id
+            id: _id
         });
     };
 
@@ -161,7 +133,7 @@ module.exports = function generatorsListController(generatorsService, $state, nd
 
     function detailGeneratorAction(selectedGenerators) {
         $state.go('app.generators.detail.dashboard', {
-            id: selectedGenerators[0].id
+            id: selectedGenerators[0]._id
         });
     }
 
@@ -179,7 +151,7 @@ module.exports = function generatorsListController(generatorsService, $state, nd
     // private methods
     function deleteOneByOne(selectedGenerators) {
         kendo.ui.progress(grid, true);
-        generatorsService.removeGenerator(selectedGenerators[0].id).then(function (data) {
+        Todos.delete(selectedGenerators[0]._id).then(function (data) {
             selectedGenerators.splice(0, 1);
             if (selectedGenerators.length > 0) {
                 deleteOneByOne(selectedGenerators);
@@ -193,5 +165,5 @@ module.exports = function generatorsListController(generatorsService, $state, nd
     function onDeleteError() {
         alert('Erro ao excluir !!');
         kendo.ui.progress(grid, false);
-    }
-};
+	}
+}

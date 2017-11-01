@@ -1,6 +1,39 @@
 <section class="content__grid content__grid--full">
-    <ndd-kendo-grid id="generatorsGrid"
-                    kendo-grid-options="$ctrl.kendoGridOptions" 
-                    kendo-grid-options-header="$ctrl.gridHeaderOptions"
-                    kendo-grid-options-filter="$ctrl.gridFilterOptions"></ndd-kendo-grid>
-</section>
+        <ndd-kendo-grid id="generatorsGrid"
+                        kendo-grid-options="$ctrl.kendoGridOptions" 
+                        kendo-grid-options-header="$ctrl.gridHeaderOptions"
+                        kendo-grid-options-filter="$ctrl.gridFilterOptions"></ndd-kendo-grid>
+    </section>
+<!--<div class="container" >
+        <div class="jumbotron text-center">
+        <h1>A fazer <span class="label label-info">{{ todos.length }}</span></h1>
+    </div>
+
+    <div id="todo-list" class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+
+            <div class="checkbox" ng-repeat="todo in todos">
+                <label>
+                    <button type="button" class="btn btn-light" ng-click="deleteTodo(todo._id)"><b> X </b> {{ todo.text }}</button>                        
+                </label>
+            </div>
+
+            <p class="text-center" ng-show="loading">
+                <span class="fa fa-spinner fa-spin fa-3x"></span>
+            </p>
+
+        </div>
+    </div>
+
+     <div id="todo-form" class="row">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg text-center" placeholder="Registrar Bugs" ng-model="formData.text">
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Adicionar</button>
+            </form>
+        </div>
+    </div> 
+
+</div>-->

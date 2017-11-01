@@ -1,5 +1,5 @@
 /* @ngInject */
-module.exports = function generatorsDetailController($scope, $stateParams, $state, generatorsService, breadcrumbService, nddAlert, nddConfirmDialogService) {
+module.exports = function generatorsDetailController($scope, $stateParams, $state, Todos, breadcrumbService, nddAlert, nddConfirmDialogService) {
     var self = this;
 
     self.tabOptions = [
@@ -31,7 +31,7 @@ module.exports = function generatorsDetailController($scope, $stateParams, $stat
 
     function removeGenerator() {
         self.isLoading = true;
-        generatorsService.removeGenerator(self.generator.id).then(function (data) {
+        Todos.delete(self.generator.id).then(function (data) {
             nddConfirmDialogService.showDialog({
                 title: 'Operação realizada',
                 messageText: 'Cliente excluído com sucesso !',
@@ -51,7 +51,7 @@ module.exports = function generatorsDetailController($scope, $stateParams, $stat
     }
 
     function loadData() {
-        generatorsService.getById($stateParams.id).then(onLoadSucess);
+        Todos.getById($stateParams.id).then(onLoadSucess);
     }
 
     function onLoadSucess(generator) {

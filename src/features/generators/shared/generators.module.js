@@ -1,8 +1,5 @@
-var generatorsModule = angular.module('generators', [
-    require('shared/configuration/configuration.module'),
-    require('ndd-query-generator')
-]);
+var generatorsModule = angular.module('Todos', []);
 
-generatorsModule.factory('generatorsService', require('./generators.service'));
+generatorsModule.factory('Todos', require('./generators.service'));
 
 module.exports = generatorsModule.name;

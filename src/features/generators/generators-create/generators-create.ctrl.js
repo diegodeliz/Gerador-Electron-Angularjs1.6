@@ -1,11 +1,10 @@
 /* @ngInject */
-module.exports = function generatorCreateCtrl($scope, $state, generatorsService, nddConfirmDialogService, formUtilsService) {
+module.exports = function generatorCreateCtrl($scope, $state, Todos, nddConfirmDialogService, formUtilsService) {
     var self = this;
-    var Generator = require('../models/generators.model');
     
     this.$onInit = function () {
-        self.title = 'Cadastrar Cliente';
-        self.subtitle = 'Preencha os campos abaixo para para cadastrar um novo cliente';
+        self.title = 'Cadastrar Agente';
+        self.subtitle = 'Preencha os campos abaixo para para cadastrar um novo Agente';
     };
 
     this.cancel = function () {
@@ -21,12 +20,15 @@ module.exports = function generatorCreateCtrl($scope, $state, generatorsService,
         }
         var generator = self.formGetData();
         self.isLoading = true;
-        generatorsService.addGenerator(generator).then(function () {
+        Todos.create(generator).then(function (response) {
+            var data = response.data;
+            $scope.todos = data;
+
             self.isLoading = false;
             nddConfirmDialogService.showDialog({
-                title: 'Cliente foi cadastrado.',
-                messageText: 'Cliente ' + generator.name + ' cadastrado (a) com sucesso.',
-                buttonConfirmText: 'Ir para clientes.',
+                title: 'Agente foi cadastrado.',
+                messageText: 'Agente ' + generator.text + ' cadastrado (a) com sucesso.',
+                buttonConfirmText: 'Ir para Agentes.',
                 hideCancel: true,
                 showClose: false,
                 closeByDocument: false,

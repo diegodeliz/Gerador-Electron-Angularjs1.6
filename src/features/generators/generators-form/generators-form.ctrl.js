@@ -6,7 +6,6 @@ module.exports = function generatorFormController($scope) {
 
     self.$onInit = function () {
         self.generator = new Generator();
-        self.fiscalTypes = require('../models/generators-type.model');
 
         self.getData = function () {
             return self.generator;

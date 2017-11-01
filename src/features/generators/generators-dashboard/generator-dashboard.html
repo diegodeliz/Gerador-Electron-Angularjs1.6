@@ -1,36 +1,11 @@
 <div class="ndd-entity-editor__form-content">
     <div class="row" ng-if="!$ctrl.isEditing && !$ctrl.isLoading">
         <div class="col-sm-6">
-            <h4 class="ndd-entity-editor__form-title">DADOS CADASTRAIS</h4>
+            <h4 class="ndd-entity-editor__form-title">DADOS</h4>
             <div class="col-sm-12 ndd-entity-editor__form-group">
-                <span class="ndd-entity-editor__form-label">Nome</span>
+                <span class="ndd-entity-editor__form-label">Texto</span>
                 <br>
-                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.name"></span>
-            </div>
-            <div class="col-sm-6 ndd-entity-editor__form-group">
-                <span class="ndd-entity-editor__form-label">Identificação</span>
-                <br>
-                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.id"></span>
-            </div>
-            <div class="col-sm-6 ndd-entity-editor__form-group">
-                <span class="ndd-entity-editor__form-label">Email</span>
-                <br>
-                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.email"></span>
-            </div>
-            <div class="col-sm-6 ndd-entity-editor__form-group">
-                <span class="ndd-entity-editor__form-label">Ativo</span>
-                <br>
-                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.isActivated"></span>
-            </div>
-            <div class="col-sm-6 ndd-entity-editor__form-group">
-                <span class="ndd-entity-editor__form-label">Tipo Fiscal</span>
-                <br>
-                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.fiscalType"></span>
-            </div>
-            <div class="col-sm-6 ndd-entity-editor__form-group">
-                <span class="ndd-entity-editor__form-label">Código Fiscal</span>
-                <br>
-                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.fiscalCode"></span>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.text"></span>
             </div>
         </div>
     </div>

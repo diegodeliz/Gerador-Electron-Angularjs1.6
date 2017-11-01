@@ -1,12 +1,8 @@
 /* @ngInject */
-module.exports = function generatorsDashboardController($scope, $state, generatorsService, formUtilsService, nddAlert) {
+module.exports = function generatorsDashboardController($scope, $state, Todos, formUtilsService, nddAlert) {
     var self = this;
 
     self.isLoading = true;
-
-    this.$onInit = function () {
-        self.fiscalTypes = require('../models/generators-type.model');
-    };
 
     this.$onChanges = function (changes) {
         if (changes.api && changes.api.currentValue) {
@@ -37,7 +33,7 @@ module.exports = function generatorsDashboardController($scope, $state, generato
         }
         var generator = self.formGetData();
         self.isLoading = true;
-        generatorsService.editGenerator(generator).then(function () {
+        Todos.edit(generator).then(function () {
             self.isLoading = true;
             self.isEditing = false;
             formUtilsService.setPristine(form);
