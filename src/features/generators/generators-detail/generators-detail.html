@@ -1,7 +1,7 @@
 <div class="ndd-entity-editor__header">
-    <titlebar titlebar-title="$ctrl.generator.name" titlebar-icon="'fa fa-user'">
+    <titlebar titlebar-title="$ctrl.generator.text" titlebar-icon="'fa fa-user'">
         <titlebar-info>
-            <titlebar-info-item titlebar-info-text="$ctrl.generator.email" titlebar-info-icon="'fa fa-envelope-o'"> </titlebar-action-item>
+            <titlebar-info-item titlebar-info-text="$ctrl.generator.text" titlebar-info-icon="'fa fa-envelope-o'"> {{ generator.text }} </titlebar-action-item>
         </titlebar-info>
         <titlebar-action>
             <titlebar-action-item titlebar-action-text="'Excluir'" ng-click="$ctrl.remove()"  titlebar-action-icon="'fa fa-trash'"></titlebar-action-item>

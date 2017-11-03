@@ -6,7 +6,7 @@
   "scripts": {
     "electron": "webpack && electron .",
     "web": "webpack --target web && webpack-dev-server --target web ",
-    "dev": "electron . && webpack-dev-server --config webpack.config.js --progress --env.isDev",
+    "dev": "webpack-dev-server --config webpack.config.js --progress --env.isDev && electron .",
     "start": "electron .",
     "clean": "rimraf dist/*",
     "build": "npm run clean && node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js --config webpack.config.js --progress --bail",

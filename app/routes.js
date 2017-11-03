@@ -45,6 +45,19 @@ module.exports = function (app) {
             res.json(docs);
         });
     });
+    app.put('/api/todos/:todo_id', (req, res) => {
+        Todo.findOneAndUpdate({_id: req.body._id}, {
+          $set: {
+            text: req.body.text
+          }
+        }, {
+          sort: {_id: -1},
+          upsert: true
+        }, (err, result) => {
+          if (err) return res.send(err)
+          res.send(result)
+        })
+    });   
     app.get('*', function (req, res) {
         res.sendFile(__dirname + '/dist/index.html');
     });

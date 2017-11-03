@@ -56,8 +56,10 @@ module.exports = function generatorsDetailController($scope, $stateParams, $stat
 
     function onLoadSucess(generator) {
         self.generator = generator;
+        //ajustado para tratar o objeto JSON corretamente
+        var generator = JSON.parse(JSON.stringify(generator[0]));
         var breadcrumb = {
-            text: generator.name,
+            text: generator.text,
             sref: 'app.generators.detail.dashboard',
             params: {
                 id: $stateParams.id
