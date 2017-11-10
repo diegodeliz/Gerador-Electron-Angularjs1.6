@@ -2,14 +2,9 @@
 module.exports = function generatorsDetailController($scope, $stateParams, $state, Todos, breadcrumbService, nddAlert, nddConfirmDialogService) {
     var self = this;
 
-    self.tabOptions = [
-        {
-            state: 'app.generators.detail.dashboard',
-            text: 'Dados Cadastrais'
-        }
-    ];
-
-    self.$onInit = function () {
+    this.$onInit = function () {
+        self.title = 'Cadastrar Agente';
+        self.subtitle = 'Preencha os campos abaixo para para cadastrar um novo Agente';
         loadData();
     };
 

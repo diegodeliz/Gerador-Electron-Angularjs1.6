@@ -9,19 +9,16 @@ let modalWindow = null;
 let ModalCnpj = null;
 let ModalEmployees = null;
 
+
 function createWindow () {
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: 650,
+    width: 980,
+    height: 680,
     autoHideMenuBar: true,
     icon: path.join(__dirname, 'img/logo.png')
   });
 
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, '/dist/index.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
+  mainWindow.loadURL('http://localhost:8080/');
 
   mainWindow.on('closed', () => {
     let dir = './data/arquivo.tmp';

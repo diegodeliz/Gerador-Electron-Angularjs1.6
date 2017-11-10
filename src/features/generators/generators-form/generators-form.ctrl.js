@@ -11,10 +11,14 @@ module.exports = function generatorFormController($scope) {
             return self.generator;
         };
 
-        self.getForm = function () {
+        self.getForm = function (element) {
             return $scope.formGenerators;
         };
     };
+
+    $('#origem').on('change', function (event) {
+        self.generator.origem = document.getElementById("origem").files[0].path;
+    });
 
     this.$onChanges = function (changes) {
         if (changes.generator && changes.generator.currentValue) {

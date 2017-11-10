@@ -13,12 +13,8 @@ module.exports = function generatorCreateCtrl($scope, $state, Todos, nddConfirmD
 
     this.save = function () {
         var form = self.getForm();
-        if (form.$invalid) {
-            formUtilsService.setDirty(form);
-            formUtilsService.setTouched(form);
-            return;
-        }
         var generator = self.formGetData();
+
         self.isLoading = true;
         Todos.create(generator).then(function (response) {
             var data = response.data;

@@ -7,7 +7,7 @@ module.exports = function generatorsListController($scope, Todos, $state, nddKen
     var dataSource = new window.kendo.data.DataSource({
         transport: {
             read: {
-            	url: 'http://localhost:8080/api/todos',
+            	url: 'api/todos',
 				type: "get",
 				dataType: "json"
 			},
@@ -22,7 +22,10 @@ module.exports = function generatorsListController($scope, Todos, $state, nddKen
                     Id: {
                         type: 'string'
                     },
-                    Text: {
+                    Nomenclatura: {
+                        type: 'string'
+                    },
+                    Origem: {
                         type: 'string'
                     }
                 }
@@ -37,6 +40,8 @@ module.exports = function generatorsListController($scope, Todos, $state, nddKen
 
     this.$onInit = function () {
         grid = $('#generatorsGrid #grid');
+
+        var documentName = self.generator.origem;
 
         self.kendoGridOptions = {
             dataSource: dataSource,
@@ -55,15 +60,19 @@ module.exports = function generatorsListController($scope, Todos, $state, nddKen
                 }
             },
             resizable: true,
-            columns: [{
-                    field: '_id',
-                    title: 'Id',
-                    width: 60
+            columns: [
+                {
+                    field: 'nomenclatura',
+                    title: 'Nomenclatura',
+                    template: '<a class="ndd-kendo-grid__link" ng-click="$parent.$parent.$ctrl.open#:_id#">#:nomenclatura#</a>'
                 },
                 {
-                    field: 'text',
-                    title: 'Text',
-                    template: '<a class="ndd-kendo-grid__link" ng-click="$parent.$parent.$ctrl.open#:_id#">#:text#</a>'
+                    field: 'documentName',
+                    title: 'Origem',
+                    template: '<a class="ndd-kendo-grid__link" ng-click="$parent.$parent.$ctrl.open#:_id#">#:documentName#</a>'
+                },
+                {
+                    template: '<button class="btn right-align right" ng-click="$parent.$parent.$ctrl.open#:_id#">Gerar Documentos</button>'
                 }
             ]
         };
@@ -76,8 +85,8 @@ module.exports = function generatorsListController($scope, Todos, $state, nddKen
                 textSearchbar: 'Pesquisar',
                 iconSearchbar: 'fa fa-search',
                 filter: [{
-                    prop: 'name',
-                    field: 'name',
+                    prop: 'nomenclatura',
+                    field: 'nomenclatura',
                     operator: 'contains'
                 }]
             }

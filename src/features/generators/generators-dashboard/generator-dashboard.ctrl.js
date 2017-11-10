@@ -3,7 +3,8 @@ module.exports = function generatorsDashboardController($scope, $state, Todos, f
     var self = this;
 
     self.isLoading = true;
-
+    self.isEditing = true;
+    
     this.$onChanges = function (changes) {
         if (changes.api && changes.api.currentValue) {
             self.isLoading = false;
@@ -26,12 +27,9 @@ module.exports = function generatorsDashboardController($scope, $state, Todos, f
 
     this.save = function () {
         var form = self.getForm();
-        if (form.$invalid) {
-            formUtilsService.setDirty(form);
-            formUtilsService.setTouched(form);
-            return;
-        }
+
         var generator = self.formGetData();
+
         self.isLoading = true;
         Todos.edit(generator).then(function () {
             self.isLoading = true;

@@ -4,6 +4,8 @@ require('./shared/polyfill/jquery-2.polyfill');
 var angular = require('angular');
 require('angular-loading-bar');
 require('bootstrap');
+require('materialize-css');
+
 require('angular-i18n/angular-locale_pt-br');
 
 var app = angular.module('app', [

@@ -1,8 +1,101 @@
 <form name="formGenerators" class="form" novalidate>
-    <label class="form__label-description">Tarefa</label>    
-    <input type="text" name="text" class="form__field" placeholder="Registrar Bugs" required ng-model="$ctrl.generator.text"
-        autocomplete="off" ng-class="{'form__field--invalid': formGenerators.text.$invalid && formGenerators.text.$dirty}">   
-    <div ng-messages="formGenerators.todo.$error" role="alert">
-        <div class="form__message form__message--error" ng-show="formGenerators.text.$dirty" ng-message="required">É preciso um nome para o Agente</div>
+
+    <div class="col s9 center-align">
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>Arquivo Base</span>
+                <input type="file" id="origem" id="origem" />
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path " type="text" />
+            </div>
+        </div>
+    </div>
+    <div class="col s3 center-align">
+        <div class="file-field input-field arquivoBaseModal">
+            <a class="modal-trigger" id="btnModal" href="">
+                <button class="waves-effect waves-light btn-floating">
+                    <i class="small material-icons right">assignment</i>
+                </button>
+                <span>Arquivo Base</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="input-field col s12">
+        <input id="destino" type="text" required ng-model="$ctrl.generator.destino" />
+        <label class="active" for="destino">Caminho de Destino</label>
+    </div>
+
+    <div class="col s12 center-align">
+        <div class="row">
+            <div class="col s4">
+                <div class="left-align mgTop-25">
+                    <select id="tipoEmissao">
+                        <input type="radio" id="normal" ng-value="1" ng-model="$ctrl.generator.tipoEmissao" />
+                        <label for="normal">Normal</label>
+
+                        <input type="radio" id="contingencia" ng-value="9" ng-model="$ctrl.generator.tipoEmissao" />
+                        <label for="contingencia">Contingência</label>
+                    </select>
+                </div>
+            </div>
+            <div class="range-field col s8">
+                <label class="active" for="agentes" id="lblAgentes">Quantidade de Agentes: 1</label>
+                <input type="range" id="agentes" min="1" max="50" ng-model="$ctrl.generator.agentes" />
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 center-align">
+        <div class="row">
+            <div class="col s1">
+                <a id="btnGerarNovaSerie" class="btn-floating waves-effect waves-light red">
+                    <i class="small material-icons">autorenew</i>
+                </a>
+            </div>
+            <div class="input-field col s3">
+                <input id="serie" type='number' step=1 data-length="3" required ng-model="$ctrl.generator.serie" />
+                <label id="lblSerie" class="active" for="serie">Serie</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="numero" type='number' step=1 data-length="9" required ng-model="$ctrl.generator.numero" />
+                <label id="lblNumero" class="active" for="numero">Número Inicial</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="quantidade" type='number' step=1 required ng-model="$ctrl.generator.quantidade" />
+                <label id="lblQuantidade" class="active" for="quantidade">Quantidade de Notas</label>
+            </div>
+            <div class="input-field col s2">
+                <input id="sleep" type="text" required ng-model="$ctrl.generator.sleep">
+                <label id="lblSleep" class="active" for="sleep">Sleep</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 center-align">
+        <div class="row">
+            <div class="col s1">
+                <a id="btnCadastrarCnpj" class="btn-floating waves-effect waves-light red">
+                    <i class="small material-icons">list</i>
+                </a>
+            </div>
+            <div class="input-field col s3">
+                <input id="CNPJ" type="text" id="autocomplete-input" class="autocomplete active" required ng-model="$ctrl.generator.cnpj" />
+                <label id="lblCNPJ" for="autocomplete-input" class="active">CNPJ</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="IE" type="text" id="autocomplete-input2" class="disabled" disabled ng-model="$ctrl.generator.ie"/>
+                <label id="lblIE" for="autocomplete-input2" class="active">Inscrição Estadual</label>
+            </div>
+            <div class="input-field col s3">
+                <input id="nomenclatura" type="text" required ng-model="$ctrl.generator.nomenclatura" />
+                <label id="lblNomenclatura" class="active" for="nomenclatura">Nomenclatura do Arquivo</label>
+            </div>
+            <div class="input-field col s2">
+                <input type='number' step=1 id="fuso" required ng-model="$ctrl.generator.fuso" />
+                <label id="lblFuso" class="active" for="fuso">Fuso</label>
+            </div>
+        </div>
     </div>
 </form>

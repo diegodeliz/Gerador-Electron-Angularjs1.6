@@ -1,11 +1,65 @@
 <div class="ndd-entity-editor__form-content">
     <div class="row" ng-if="!$ctrl.isEditing && !$ctrl.isLoading">
         <div class="col-sm-6">
-            <h4 class="ndd-entity-editor__form-title">DADOS</h4>
-            <div class="col-sm-12 ndd-entity-editor__form-group">
-                <span class="ndd-entity-editor__form-label">Texto</span>
+            <div class="col s12 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Nomenclatura</span>
                 <br>
-                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.text"></span>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.nomenclatura"></span>
+            </div>
+            <div class="col s12 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Origem</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.origem"></span>
+            </div>
+            <div class="col s12 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Destino</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.destino"></span>
+            </div>
+            <div class="col s2 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Tipo de Emissão</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.tipoEmissao"></span>
+            </div>
+            <div class="col s10 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Quantidade de Agentes</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.agentes"></span>
+            </div>
+            <div class="col s1 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Qntdade</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.quantidade"></span>
+            </div>
+            <div class="col s1 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Série</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.serie"></span>
+            </div>
+            <div class="col s10 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Número</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.numero"></span>
+            </div>
+            <div class="col s1 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Fuso</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.fuso"></span>
+            </div>
+            <div class="col s11 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Intervalo Entre Notas (ms)</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.sleep"></span>
+            </div>
+            <div class="col s2 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">CNPJ</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.cnpj"></span>
+            </div>
+            <div class="col s10 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Inscrição Estadual</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.generator.ie"></span>
             </div>
         </div>
     </div>
