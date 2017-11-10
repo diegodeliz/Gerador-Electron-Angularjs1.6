@@ -5,6 +5,10 @@ module.exports = mongoose.model('tbtodo', {
         type: String,
         default: ''
     },
+    origemName: {
+        type: String,
+        default: ''
+    },
     destino: {
         type: String,
         default: ''

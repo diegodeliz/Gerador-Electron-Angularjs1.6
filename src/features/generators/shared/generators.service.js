@@ -21,6 +21,11 @@ module.exports = function Todos(appConfig, $http) {
                 return data.status;
             });
         },
+        teste : function(todoData) {
+            return $http.put(appConfig.apiUrl + 'teste/' + todoData, JSON.stringify(todoData)).then(function (data) {
+                return data.status;
+            });
+        },
         delete : function(id) {
             return $http.delete(appConfig.apiUrl + 'todos/' + id).then(function (data) {
                 return data.status;

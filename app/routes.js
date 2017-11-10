@@ -32,6 +32,7 @@ module.exports = function (app) {
         Todo.create({
             text: req.body.text,
             origem: req.body.origem,
+            origemName: req.body.origemName,
             destino: req.body.destino,
             tipoEmissao: req.body.tipoEmissao,
             agentes: req.body.agentes,
@@ -49,6 +50,8 @@ module.exports = function (app) {
                 res.send(err);
             getTodos(res);
         });
+    });
+    app.post('/api/testes', function (req, res) {
 
     });
     app.delete('/api/todos/:todo_id', function (req, res) {
@@ -65,6 +68,7 @@ module.exports = function (app) {
           $set: {
             text: req.body.text,
             origem: req.body.origem,
+            origemName: req.body.origemName,
             destino: req.body.destino,
             tipoEmissao: req.body.tipoEmissao,
             agentes: req.body.agentes,

@@ -120,7 +120,18 @@ nav {box-shadow: none;}
 .k-grid-header th.k-header {vertical-align: middle !important;}
 .ndd-kendo-grid__checkbox input:checked + label::before { content: " " !important;}
 ndd-filter-searchbar input[type=text]:not(.browser-default) {margin-top: -7px;}
-.btn:hover, .btn-large:hover {background-color: #3fc6a7;}
+.btn {
+    background-color: #3fc6a7;
+    color: #fff;
+    text-decoration: none;
+    opacity: 1;
+}
+.btn:hover, .btn:focus, .btn.active {
+    background-color: #3fc6a7;
+    color: #f6f6f6;
+    text-decoration: none;
+    opacity: 0.8;
+}
 titlebar .titlebar__left i {vertical-align: super;font-size: 80%; margin-top: 5px;}
 .titlebar .spanTitle {font-size: 2rem;}
 [type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {background-color: #3fc6a7;}

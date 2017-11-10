@@ -1,6 +1,7 @@
 function Generator() {
     this._id = '';
     this.origem = '';
+    this.origemName = '';    
     this.destino = 'C:\Program Files\NDDigital\eForms_NFCe\Agent Service_';
     this.tipoEmissao = '1';
     this.agentes = 1;

@@ -41,8 +41,6 @@ module.exports = function generatorsListController($scope, Todos, $state, nddKen
     this.$onInit = function () {
         grid = $('#generatorsGrid #grid');
 
-        var documentName = self.generator.origem;
-
         self.kendoGridOptions = {
             dataSource: dataSource,
             selectable: 'multiple, row',
@@ -64,15 +62,31 @@ module.exports = function generatorsListController($scope, Todos, $state, nddKen
                 {
                     field: 'nomenclatura',
                     title: 'Nomenclatura',
-                    template: '<a class="ndd-kendo-grid__link" ng-click="$parent.$parent.$ctrl.open#:_id#">#:nomenclatura#</a>'
+                    width: 170,
+                    template: '#:nomenclatura#'
                 },
                 {
-                    field: 'documentName',
+                    field: 'origemName',
                     title: 'Origem',
-                    template: '<a class="ndd-kendo-grid__link" ng-click="$parent.$parent.$ctrl.open#:_id#">#:documentName#</a>'
+                    width: 360,
+                    template: '#:origemName#'
                 },
                 {
-                    template: '<button class="btn right-align right" ng-click="$parent.$parent.$ctrl.open#:_id#">Gerar Documentos</button>'
+                    field: 'serie',
+                    title: 'Serie',
+                    width: 60,
+                    template: '#:serie#'
+                },
+                {
+                    field: 'numero',
+                    title: 'Número',
+                    width: 60,
+                    template: '#:numero#'
+                },
+                {
+                    title: 'Gerar Notas',
+                    width: 110,
+                    template: '<button class="btn right-align right" ng-click="$parent.$parent.$ctrl.open#:_id#">Gerar</button>'
                 }
             ]
         };
