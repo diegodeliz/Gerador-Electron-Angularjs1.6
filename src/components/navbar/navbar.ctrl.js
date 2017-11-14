@@ -14,11 +14,11 @@ module.exports = function navbarController( $state, nddSidebarService) {
                 options: [
                     {
                         text: 'Gerador',
-                        action: togenerator
+                        action: toGenerator
                     },
                     {
-                        text: 'Clientes',
-                        action: toCustomers
+                        text: 'Empresa',
+                        action: toCompanies
                     }]
             },
             {
@@ -28,11 +28,11 @@ module.exports = function navbarController( $state, nddSidebarService) {
         ]
     };
 
-    function togenerator() {
+    function toGenerator() {
         $state.go('app.generators.list');
     }
 
-    function toCustomers() {
-        $state.go('app.customers.list');
+    function toCompanies() {
+        $state.go('app.companies.list');
     }
 }

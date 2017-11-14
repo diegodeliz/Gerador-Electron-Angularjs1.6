@@ -41,7 +41,13 @@ app.all('/', function(req, res, next) {
 });
 
 // routes ======================================================================
-require('./app/routes.js')(app);
+var consign = require('consign');
+
+consign({cwd: 'app'})
+.include('models')
+.then('routes')
+.into(app)
+;
 
 // listen (start app with node server.js) ======================================
 app.listen(port);

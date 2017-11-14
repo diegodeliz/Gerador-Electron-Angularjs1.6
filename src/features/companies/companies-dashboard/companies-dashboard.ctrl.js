@@ -1,5 +1,5 @@
 /* @ngInject */
-module.exports = function generatorsDashboardController($scope, $state, generatorService, formUtilsService, nddAlert) {
+module.exports = function companiesDashboardController($scope, $state, CompaniesService, formUtilsService, nddAlert) {
     var self = this;
 
     self.isLoading = true;
@@ -9,7 +9,7 @@ module.exports = function generatorsDashboardController($scope, $state, generato
         if (changes.api && changes.api.currentValue) {
             self.isLoading = false;
             self.api = angular.copy(self.api);
-            self.generator = self.api.generator;
+            self.company = self.api.company;
         }
     };
 
@@ -19,7 +19,7 @@ module.exports = function generatorsDashboardController($scope, $state, generato
 
     this.cancel = function () {
         if (!self.isEditing) {
-            $state.go('app.generators.list');
+            $state.go('app.companies.list');
         } else {
             self.isEditing = false;
         }
@@ -28,15 +28,15 @@ module.exports = function generatorsDashboardController($scope, $state, generato
     this.save = function () {
         var form = self.getForm();
 
-        var generator = self.formGetData();
+        var company = self.formGetData();
 
         self.isLoading = true;
-        generatorService.edit(generator).then(function () {
+        CompaniesService.edit(company).then(function () {
             self.isLoading = true;
             self.isEditing = true;
             formUtilsService.setPristine(form);
             self.api.refresh();
-            $state.go('app.generators.list');
+            $state.go('app.companies.list');
         }, messageError);
     };
 

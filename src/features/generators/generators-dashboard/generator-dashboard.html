@@ -73,5 +73,5 @@
 <div class="ndd-entity-editor__form-footer">
     <button ng-if="$ctrl.isEditing" ng-click="$ctrl.save()" class="ndd-button ndd-button--highlighted" type="button">Salvar</button>
     <button ng-if="!$ctrl.isEditing" ng-click="$ctrl.edit()" class="ndd-button ndd-button--highlighted" type="button">Editar</button>
-    <button ng-click="$ctrl.cancel()" class="ndd-button" type="button">Cancelar</button>
+    <button ui-sref="app.generators.list" class="ndd-button" type="button">Cancelar</button>
 </div>

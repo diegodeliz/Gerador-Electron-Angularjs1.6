@@ -1,12 +1,12 @@
-var Todo = require('./models/todo');
+var Todo = require('../models/generator');
 
-function getTodos(res) {
-    Todo.find(function (err, todos) {
+function getGenerator(res) {
+    Todo.find(function (err, generator) {
         if (err) {
             res.send(err);
         }
 
-        res.json(todos); 
+        res.json(generator); 
     });
 };
 
@@ -19,16 +19,16 @@ module.exports = function (app) {
     //app.get('*', function (req, res) {
         //res.sendFile(__dirname + '/dist/index.html');
     //});
-    app.get('/api/todos', function (req, res) {
-        getTodos(res);
+    app.get('/api/generator', function (req, res) {
+        getGenerator(res);
     });
     //GetByID
-    app.get('/api/todos/:todo_id', function(req, res) {   
-        Todo.find({"_id": req.params.todo_id},{},function(e,docs){
+    app.get('/api/generator/:generator_id', function(req, res) {   
+        Todo.find({"_id": req.params.generator_id},{},function(e,docs){
             res.json(docs);
         });
     });
-    app.post('/api/todos', function (req, res) {
+    app.post('/api/generator', function (req, res) {
         Todo.create({
             text: req.body.text,
             origem: req.body.origem,
@@ -45,25 +45,25 @@ module.exports = function (app) {
             cnpj: req.body.cnpj,
             ie: req.body.ie,
             done: false
-        }, function (err, todo) {
+        }, function (err, generator) {
             if (err)
                 res.send(err);
-            getTodos(res);
+            getGenerator(res);
         });
     });
-    app.post('/api/testes', function (req, res) {
-
+    app.get('/api/teste/:generator_id', function(req, res) {   
+        res.send(req.params.generator_id);
     });
-    app.delete('/api/todos/:todo_id', function (req, res) {
+    app.delete('/api/generator/:generator_id', function (req, res) {
         Todo.remove({
-            _id: req.params.todo_id
-        }, function (err, todo) {
+            _id: req.params.generator_id
+        }, function (err, generator) {
             if (err)
                 res.send(err);
-            getTodos(res);
+            getGenerator(res);
         });
     });
-    app.put('/api/todos/:todo_id', (req, res) => {
+    app.put('/api/generator/:generator_id', (req, res) => {
         Todo.findOneAndUpdate({_id: req.body._id}, {
           $set: {
             text: req.body.text,
@@ -88,6 +88,5 @@ module.exports = function (app) {
           if (err) return res.send(err)
           res.send(result)
         })
-    });   
-
+    });      
 };

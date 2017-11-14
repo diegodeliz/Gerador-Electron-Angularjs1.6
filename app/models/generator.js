@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-module.exports = mongoose.model('tbtodo', {
+module.exports = mongoose.model('tbgenerator', {
     origem: {
         type: String,
         default: ''

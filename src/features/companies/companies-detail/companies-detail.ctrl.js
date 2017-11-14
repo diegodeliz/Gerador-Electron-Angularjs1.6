@@ -1,5 +1,5 @@
 /* @ngInject */
-module.exports = function generatorsDetailController($scope, $stateParams, $state, generatorService, breadcrumbService, nddAlert, nddConfirmDialogService) {
+module.exports = function companiesDetailController($scope, $stateParams, $state, CompaniesService, breadcrumbService, nddAlert, nddConfirmDialogService) {
     var self = this;
 
     this.$onInit = function () {
@@ -9,7 +9,7 @@ module.exports = function generatorsDetailController($scope, $stateParams, $stat
     };
 
     this.redirectToDash = function () {
-        $state.go('app.generators.detail.dashboard', {
+        $state.go('app.companies.detail.dashboard', {
             id: $stateParams.id,
             edit: true
         });
@@ -21,19 +21,19 @@ module.exports = function generatorsDetailController($scope, $stateParams, $stat
             messageText: 'Deseja realmente excluir ? Essa operação não pode ser desfeita.',
             buttonConfirmText: 'Remover',
             buttonCancelText: 'Cancelar'
-        }, removeGenerator);
+        }, removeCompany);
     };
 
-    function removeGenerator() {
+    function removeCompany() {
         self.isLoading = true;
-        generatorService.delete(self.generator.id).then(function (data) {
+        CompaniesService.delete(self.company.id).then(function (data) {
             nddConfirmDialogService.showDialog({
                 title: 'Operação realizada',
                 messageText: 'Cliente excluído com sucesso !',
                 buttonConfirmText: 'OK',
                 hideCancel: true
             }, function () {
-                $state.go('app.generators.list');
+                $state.go('app.companies.list');
             });
         }, function () {
             self.isLoading = false;
@@ -46,24 +46,24 @@ module.exports = function generatorsDetailController($scope, $stateParams, $stat
     }
 
     function loadData() {
-        generatorService.getById($stateParams.id).then(onLoadSucess);
+        CompaniesService.getById($stateParams.id).then(onLoadSucess);
     }
 
-    function onLoadSucess(generator) {
-        self.generator = generator;
+    function onLoadSucess(company) {
+        self.company = company;
         //ajustado para tratar o objeto JSON corretamente
-        var generator = JSON.parse(JSON.stringify(generator[0]));
+        var company = JSON.parse(JSON.stringify(company[0]));
         var breadcrumb = {
-            text: generator.text,
-            sref: 'app.generators.detail.dashboard',
+            text: company.text,
+            sref: 'app.companies.detail.dashboard',
             params: {
                 id: $stateParams.id
             }
         };
         self.api = {
-            generator: generator,
+            company: company,
             refresh: loadData
         };
-        breadcrumbService.setOptions($scope, 'app.generators', breadcrumb);
+        breadcrumbService.setOptions($scope, 'app.companies', breadcrumb);
     }
 };

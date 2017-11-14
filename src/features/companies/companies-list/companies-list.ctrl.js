@@ -1,13 +1,13 @@
 /* @ngInject */
 /* global kendo */
-module.exports = function generatorsListController($scope, generatorService, $state, nddKendoGridApiService, nddConfirmDialogService) {
+module.exports = function companiesListController($scope, CompaniesService, $state, nddKendoGridApiService, nddConfirmDialogService) {
     let self = this;
     let grid, detailsTemplate;
     
     let dataSource = new window.kendo.data.DataSource({
         transport: {
             read: {
-                url: 'api/generator',
+                url: 'api/company',
                 type: "get",
                 dataType: "json"
             },
@@ -22,10 +22,13 @@ module.exports = function generatorsListController($scope, generatorService, $st
                     Id: {
                         type: 'string'
                     },
-                    Nomenclatura: {
+                    Nome: {
                         type: 'string'
                     },
-                    Origem: {
+                    CNPJ: {
+                        type: 'string'
+                    },
+                    IE: {
                         type: 'string'
                     }
                 }
@@ -39,7 +42,7 @@ module.exports = function generatorsListController($scope, generatorService, $st
     });
 
     this.$onInit = function () {
-        grid = $('#generatorsGrid #grid');
+        grid = $('#companiesGrid #grid');
 
         self.kendoGridOptions = {
             dataSource: dataSource,
@@ -54,67 +57,60 @@ module.exports = function generatorsListController($scope, generatorService, $st
                     display: 'Exibindo {0}-{1} from {2} itens',
                     itemsPerPage: 'Itens por página',
                     empty: 'Não há itens para exibir',
-                    allPages: 'generatorService'
+                    allPages: 'CompaniesService'
                 }
             },
             resizable: true,
             columns: [
                 {
-                    field: 'nomenclatura',
-                    title: 'Nomenclatura',
-                    width: 170,
-                    headerAttributes: { "class": "center" },
-                    attributes: { "class": "n-grid-column-align-center" },
-                    template: '#:nomenclatura#'
+                    field: 'nome',
+                    title: 'Nome',
+                    width: 480,
+                    headerAttributes: { "class": "left" },
+                    template: '#:nome#'
                 },
                 {
-                    field: 'origemName',
-                    title: 'Origem',
-                    width: 360,
+                    field: 'cnpj',
+                    title: 'CNPJ',
+                    width: 120,
                     headerAttributes: { "class": "center" },
                     attributes: { "class": "n-grid-column-align-center" },
-                    template: '#:origemName#'
+                    template: '#:cnpj#'
                 },
                 {
-                    field: 'serie',
-                    title: 'Serie',
-                    width: 60,
+                    field: 'ie',
+                    title: 'Inscrição Estadual',
+                    width: 120,
                     headerAttributes: { "class": "center" },
                     attributes: { "class": "n-grid-column-align-center" },
-                    template: '#:serie#'
-                },
-                {
-                    field: 'numero',
-                    title: 'Número',
-                    width: 60,
-                    headerAttributes: { "class": "center" },
-                    attributes: { "class": "n-grid-column-align-center" },
-                    template: '#:numero#'
-                },
-                {
-                    field: 'quantidade',
-                    title: 'Qtnd',
-                    width: 60,
-                    headerAttributes: { "class": "center" },
-                    attributes: { "class": "n-grid-column-align-center" },
-                    template: '#:quantidade#'
-                },
-                { command: { text: "Gerar Notas", click: showDetails }, title: "gerar ", width: "120px" }
+                    template: '#:ie#'
+                }
             ]
         };
 
         self.gridFilterOptions = {
             advanced: {
-                columns: require('./values/generators-list-kendo-filter-options.js')
+                columns: require('./values/companies-list-kendo-filter-options.js')
             },
             searchbar: {
                 textSearchbar: 'Pesquisar',
                 iconSearchbar: 'fa fa-search',
                 filter: [{
-                    prop: 'nomenclatura',
-                    field: 'nomenclatura',
+                    prop: 'nome',
+                    field: 'nome',
                     operator: 'contains'
-                }]
+                },
+                {
+                    prop: 'cnpj',
+                    field: 'cnpj',
+                    operator: 'contains'
+                },
+                {
+                    prop: 'ie',
+                    field: 'ie',
+                    operator: 'contains'
+                }
+                ]
             }
         };
 
@@ -122,19 +118,19 @@ module.exports = function generatorsListController($scope, generatorService, $st
             options: [{
                 text: 'Novo',
                 icon: 'fa fa-plus',
-                action: addGeneratorAction,
+                action: addCompanyAction,
                 hideNavMobile: true
             },
             {
                 text: 'Excluir',
                 icon: 'fa fa-remove',
-                action: excludeGeneratorAction,
+                action: excludeCompanyAction,
                 needSelectRow: true
             },
             {
                 text: 'Abrir',
                 icon: 'fa fa-expand',
-                action: detailGeneratorAction,
+                action: detailCompanyAction,
                 needSelectRow: true,
                 needUniqueRow: true
             }
@@ -149,74 +145,50 @@ module.exports = function generatorsListController($scope, generatorService, $st
         };
     };
 
-    function teste(id) {
-        generatorService.teste(id).then(function (data) {
-            document.getElementById("numeroGerado").innerHTML = data;
-        });
-    }
-
-    function showDetails(e) {
-        e.preventDefault();
-
-        let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-
-        teste(dataItem._id);
-
-        nddConfirmDialogService.showDialog({
-            title: 'Gerarador de Notas Ativo',
-            messageText: '<p id="numeroGerado">Gerando nota ' + dataItem.numero + '/' + dataItem.quantidade + '</p>',
-            buttonConfirmText: 'Clique para Encerrar o Processo',
-            hideCancel: true,
-            showClose: true,
-            closeByDocument: false,
-            closeByEscape: true
-        });
-    }
-
     function onEditAction(selected) {
-        $state.go('app.generators.detail.dashboard', {
+        $state.go('app.companies.detail.dashboard', {
             id: selected._id
         });
     }
 
     this.open = function (_id) {
-        $state.go('app.generators.detail.dashboard', {
+        $state.go('app.companies.detail.dashboard', {
             id: _id
         });
     };
 
     // Header Actions
-    function addGeneratorAction() {
-        $state.go('app.generators.register');
+    function addCompanyAction() {
+        $state.go('app.companies.register');
     }
 
-    function detailGeneratorAction(selectedGenerators) {
-        $state.go('app.generators.detail.dashboard', {
-            id: selectedGenerators[0]._id
+    function detailCompanyAction(selectedCompanies) {
+        $state.go('app.companies.detail.dashboard', {
+            id: selectedCompanies[0]._id
         });
     }
 
-    function excludeGeneratorAction(selectedGenerators) {
+    function excludeCompanyAction(selectedCompanies) {
         nddConfirmDialogService.showDialog({
             title: 'Confirmar Exclusão',
             messageText: 'Deseja realmente excluir ? Essa ação não pode ser desfeita.',
             buttonConfirmText: 'Confirmar',
             buttonCancelText: 'Cancelar' // texto do botão de cancelar
         }, function () {
-            deleteOneByOne(selectedGenerators);
+            deleteOneByOne(selectedCompanies);
         });
     }
 
     // private methods
-    function deleteOneByOne(selectedGenerators) {
+    function deleteOneByOne(selectedCompanies) {
         kendo.ui.progress(grid, true);
-        generatorService.delete(selectedGenerators[0]._id).then(function (data) {
-            selectedGenerators.splice(0, 1);
-            if (selectedGenerators.length > 0) {
-                deleteOneByOne(selectedGenerators);
+        CompaniesService.delete(selectedCompanies[0]._id).then(function (data) {
+            selectedCompanies.splice(0, 1);
+            if (selectedCompanies.length > 0) {
+                deleteOneByOne(selectedCompanies);
             } else {
                 kendo.ui.progress(grid, false);
-                nddKendoGridApiService.reload('generatorsGrid');
+                nddKendoGridApiService.reload('companiesGrid');
             }
         }, onDeleteError);
     }

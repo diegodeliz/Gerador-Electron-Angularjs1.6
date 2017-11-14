@@ -1,33 +1,33 @@
 /* @ngInject */
-module.exports = function Todos(appConfig, $http) {
+module.exports = function generatorService(appConfig, $http) {
     return {
         get : function() {
-            return $http.get(appConfig.apiUrl + 'todos').then(function (result) {
+            return $http.get(appConfig.apiUrl + 'generator').then(function (result) {
                 return result.data;
             });
         },
         getById : function(id) {
-            return $http.get(appConfig.apiUrl + 'todos/' + id).then(function (result) {
+            return $http.get(appConfig.apiUrl + 'generator/' + id).then(function (result) {
                 return result.data;
             });
         },
-        create : function(todoData) {
-            return $http.post(appConfig.apiUrl + 'todos', todoData).then(function (data) {
+        create : function(generatorData) {
+            return $http.post(appConfig.apiUrl + 'generator', generatorData).then(function (data) {
                 return data.status;
             });
         },
-        edit : function(todoData) {
-            return $http.put(appConfig.apiUrl + 'todos/' + todoData, JSON.stringify(todoData)).then(function (data) {
+        edit : function(generatorData) {
+            return $http.put(appConfig.apiUrl + 'generator/' + generatorData, JSON.stringify(generatorData)).then(function (data) {
                 return data.status;
             });
         },
-        teste : function(todoData) {
-            return $http.put(appConfig.apiUrl + 'teste/' + todoData, JSON.stringify(todoData)).then(function (data) {
-                return data.status;
+        teste : function(id) {
+            return $http.get(appConfig.apiUrl + 'teste/' + id).then(function (result) {
+                return result.data;
             });
         },
         delete : function(id) {
-            return $http.delete(appConfig.apiUrl + 'todos/' + id).then(function (data) {
+            return $http.delete(appConfig.apiUrl + 'generator/' + id).then(function (data) {
                 return data.status;
             });
         }

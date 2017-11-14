@@ -1,5 +1,5 @@
 /* @ngInject */
-module.exports = function generatorCreateCtrl($scope, $state, Todos, nddConfirmDialogService, formUtilsService) {
+module.exports = function generatorCreateCtrl($scope, $state, generatorService, nddConfirmDialogService, formUtilsService) {
     var self = this;
     
     this.$onInit = function () {
@@ -16,7 +16,7 @@ module.exports = function generatorCreateCtrl($scope, $state, Todos, nddConfirmD
         var generator = self.formGetData();
 
         self.isLoading = true;
-        Todos.create(generator).then(function (response) {
+        generatorService.create(generator).then(function (response) {
             var data = response.data;
             $scope.todos = data;
 
