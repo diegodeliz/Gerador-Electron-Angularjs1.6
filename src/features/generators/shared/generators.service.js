@@ -6,6 +6,11 @@ module.exports = function generatorService(appConfig, $http) {
                 return result.data;
             });
         },
+        getCompanies : function() {
+            return $http.get(appConfig.apiUrl + 'company').then(function (result) {
+                return result.data;
+            });
+        },
         getById : function(id) {
             return $http.get(appConfig.apiUrl + 'generator/' + id).then(function (result) {
                 return result.data;

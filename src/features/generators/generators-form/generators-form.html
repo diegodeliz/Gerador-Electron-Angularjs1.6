@@ -13,7 +13,7 @@
     </div>
     <div class="col s3 center-align">
         <div class="file-field input-field arquivoBaseModal">
-            <a class="modal-trigger" id="btnModal" href="">
+            <a class="modal-trigger" id="btnModal" ng-click="$ctrl.btnArquivoModal">
                 <button class="waves-effect waves-light btn-floating">
                     <i class="small material-icons right">assignment</i>
                 </button>
@@ -31,13 +31,13 @@
         <div class="row">
             <div class="col s4">
                 <div class="left-align mgTop-25">
-                    <select id="tipoEmissao">
+                    <div id="tipoEmissao">
                         <input type="radio" id="normal" ng-value="1" ng-model="$ctrl.generator.tipoEmissao" />
                         <label for="normal">Normal</label>
 
                         <input type="radio" id="contingencia" ng-value="9" ng-model="$ctrl.generator.tipoEmissao" />
                         <label for="contingencia">Contingência</label>
-                    </select>
+                    </div>
                 </div>
             </div>
             <div class="range-field col s8">
@@ -50,7 +50,7 @@
     <div class="col s12 center-align">
         <div class="row">
             <div class="col s1">
-                <a id="btnGerarNovaSerie" class="btn-floating waves-effect waves-light red">
+                <a ng-click="$ctrl.btnGerarNovaSerie()" class="btn-floating waves-effect waves-light red" style="margin-top: 17px;">
                     <i class="small material-icons">autorenew</i>
                 </a>
             </div>
@@ -75,20 +75,13 @@
 
     <div class="col s12 center-align">
         <div class="row">
-            <div class="col s1">
-                <a id="btnCadastrarCnpj" class="btn-floating waves-effect waves-light red">
-                    <i class="small material-icons">list</i>
-                </a>
-            </div>
-            <div class="input-field col s3">
-                <input id="CNPJ" type="text" id="autocomplete-input" class="autocomplete active" required ng-model="$ctrl.generator.cnpj" />
-                <label id="lblCNPJ" for="autocomplete-input" class="active">CNPJ</label>
-            </div>
-            <div class="input-field col s3">
-                <input id="IE" type="text" id="autocomplete-input2" class="disabled" disabled ng-model="$ctrl.generator.ie"/>
-                <label id="lblIE" for="autocomplete-input2" class="active">Inscrição Estadual</label>
-            </div>
-            <div class="input-field col s3">
+            <div class="input-field col s5">
+                <select ng-options="x.nome for x in $ctrl.company" ng-model="company" ng-required="true" ng-change="$ctrl.selectCompany(company)" options-class="{ 'is-eligible' : eligible, 'not-eligible': !eligible }">
+                    <option value="" disabled selected>{{$ctrl.generator.empresa}}</option>
+                </select>
+                <label class="">Empresa Emissora</label>
+            </div>           
+            <div class="input-field col s5">
                 <input id="nomenclatura" type="text" required ng-model="$ctrl.generator.nomenclatura" />
                 <label id="lblNomenclatura" class="active" for="nomenclatura">Nomenclatura do Arquivo</label>
             </div>
@@ -98,4 +91,9 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('select').material_select();
+        });
+    </script>
 </form>

@@ -45,6 +45,10 @@ module.exports = mongoose.model('tbgenerator', {
         type: Number,
         default: ''
     },
+    empresa: {
+        type: String,
+        default: ''
+    },
     cnpj: {
         type: String,
         default: ''

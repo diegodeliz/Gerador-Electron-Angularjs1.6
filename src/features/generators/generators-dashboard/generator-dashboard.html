@@ -65,7 +65,7 @@
     </div>
     <div class="row" ng-show="$ctrl.isEditing && !$ctrl.isLoading">
         <div class="col-sm-6">
-            <generator-form generator="$ctrl.generator" get-data="$ctrl.formGetData" get-form="$ctrl.getForm"></generator-form>
+            <generator-form generator="$ctrl.generator" company="$ctrl.company" get-data="$ctrl.formGetData" get-form="$ctrl.getForm"></generator-form>
         </div>
     </div>
     <img ng-if="$ctrl.isLoading" class="form-utils__spinner" src="~shared/images/spinner.gif" alt="">

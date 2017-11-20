@@ -143,7 +143,6 @@ textarea.materialize-textarea:focus:not([readonly]) {
 
 .modal-message .chip {
     text-align: center;
-    align-center: 20px;
     line-height: 16px;
     height: 16px;
     font-weight: 300;
@@ -416,6 +415,20 @@ nav i.material-icons {
     font-weight: 100;
 }
 
+.sidebar__item {
+    position: relative;
+    padding: 15px 5px;
+    padding-left: 11px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-transform: uppercase;
+    width: auto;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #d4d5d0;
+    font-size: 12px;
+    transition-property: width, border-radius;
+}
+
 .breadcrumb__divisor {
     display: block;
     margin-top: -4px;
@@ -502,7 +515,7 @@ ndd-filter-searchbar input[type=text]:not(.browser-default) {
     color: #f6f6f6 !important;
     text-decoration: none;
     opacity: 1;
-    border: none;    
+    border: none;
 }
 
 .btn:hover,
@@ -534,22 +547,26 @@ ndd-filter-searchbar input[type=text]:not(.browser-default) {
     color: #f6f6f6 !important;
     text-decoration: none;
     opacity: 1;
-    border: none;    
+    border: none;
 }
-.k-button:active:hover, .k-button.k-state-active:hover {
+.k-button:active:hover,
+.k-button.k-state-active:hover {
     background-color: #3fc6a7 !important;
     color: #f6f6f6 !important;
     text-decoration: none;
     opacity: 0.8;
-    border: none;    
+    border: none;
 }
-.k-button:active:hover, .k-button.k-state-active:hover {
+
+.k-button:active:hover,
+.k-button.k-state-active:hover {
     background-color: #3fc6a7 !important;
     color: #f6f6f6 !important;
     text-decoration: none;
     opacity: 0.8;
-    border: none;    
+    border: none;
 }
+
 .ngdialog-content .dialog-content {
     padding: 10px;
     font-family: 'Segoe UI';
@@ -557,9 +574,11 @@ ndd-filter-searchbar input[type=text]:not(.browser-default) {
     font-weight: bold;
     text-align: center;
 }
+
 .ngdialog-content button {
     text-align: center;
 }
+
 titlebar .titlebar__left i {
     vertical-align: super;
     font-size: 80%;
@@ -598,4 +617,64 @@ span.ndd-entity-editor__form-label {
 .k-grid-header th.k-header,
 .k-filter-row th {
     text-align: center !important;
+}
+
+.select-wrapper input.select-dropdown,
+.select-wrapper ul,
+.select-wrapper span.caret {
+    display: none;
+}
+
+.select-wrapper select {
+    display: block
+}
+
+select.initialized {
+    position: relative;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    outline: none;
+    height: 3rem;
+    line-height: 3rem;
+    width: 100%;
+    font-size: 1rem;
+    margin: 0 0 20px 0;
+    display: block;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+select.initialized option {
+    clear: both;
+    cursor: pointer;
+    min-height: 50px;
+    width: 100%;
+    text-align: left;
+    text-transform: none;
+    font-size: 16px;
+    color: #26a69a;
+    display: block;
+    line-height: 1.6rem;
+    padding: 25px 16px;
+}
+
+select.initialized option:disabled {
+    color: rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+}
+
+select.initialized:focus {
+    outline: 0px;
+}
+
+.k-grid .k-button{
+    margin: 0 !important;
+    line-height: 1.72em !important;
+    text-align: center;
+    padding: .429em .700em !important;
+    border: none;
 }

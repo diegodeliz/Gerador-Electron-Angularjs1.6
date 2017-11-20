@@ -42,6 +42,7 @@ module.exports = function (app) {
             nomenclatura: req.body.nomenclatura,
             fuso: req.body.fuso,
             sleep: req.body.sleep,
+            empresa: req.body.empresa,
             cnpj: req.body.cnpj,
             ie: req.body.ie,
             done: false
@@ -78,6 +79,7 @@ module.exports = function (app) {
             nomenclatura: req.body.nomenclatura,
             fuso: req.body.fuso,
             sleep: req.body.sleep,
+            empresa: req.body.empresa,
             cnpj: req.body.cnpj,
             ie: req.body.ie
           }

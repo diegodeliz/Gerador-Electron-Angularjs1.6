@@ -11,6 +11,7 @@ function Generator() {
     this.nomenclatura = 'NDDDDL1000001001#';
     this.fuso = -2;
     this.sleep = 3000;
+    this.empresa = '';
     this.cnpj = '06255692000103';
     this.ie = '111111111111';
 }
