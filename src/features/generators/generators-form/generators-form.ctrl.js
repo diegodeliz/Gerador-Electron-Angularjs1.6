@@ -58,7 +58,7 @@ module.exports = function generatorFormController($scope, generatorService, nddA
             nddAlert.show({
                 title: "Massa de Dados",
                 messageText: '<textarea style="height: 300px; width: 500px;" rows="10" cols="100"> ' + data + '</textarea>',
-                buttonOk: "ok",
+                buttonOk: "salvar",
                 'class': "fa fa-2x fa-note",
                 disableAnimation : false,
                 disableEscape: false,

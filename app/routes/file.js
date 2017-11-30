@@ -33,7 +33,23 @@ module.exports = function (app) {
     app.get('/api/file/:_id', function(req, res) {   
         Todo.find({"_id": req.params._id},function(e,data){
             let obj = JSON.parse(JSON.stringify(data)); 
-            res.send(obj[0].origem);
+            let dir = './src/data/';
+            if (!fs.existsSync(dir)){
+                fs.mkdirSync(dir);
+            } 
+            if (fs.existsSync(obj[0].origem)){
+                let conteudo = fs.readFileSync(obj[0].origem, 'utf8');
+                fs.writeFileSync(dir + 'arquivo.tmp', conteudo);
+                res.send(conteudo);
+            }
+            try {
+                conteudo = fs.readFileSync(dir + 'arquivo.tmp', 'utf8');
+                $('#textarea1').value = conteudo; 
+            } catch (error) {
+                conteudo = fs.readFileSync(dir + 'arquivo.tmp', 'utf8');
+                res.send(conteudo);
+                console.log("Arquivo .tmp não encontrado. Gerando novo arquivo com base na URL de origem" + error);
+            }
         });
     });
 };
