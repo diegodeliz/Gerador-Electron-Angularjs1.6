@@ -64,7 +64,7 @@ function WebpackConfig(env) {
             rules: getLoaders(),
             loaders: [{
                 test: /\.jsx?$/,
-                loaders: ['babel-loader'],
+                loaders: ['babel-loader', 'ng-annotate!babel?presets[]=es2015!jshint'],
                 exclude: /node_modules/,
               }],
         },

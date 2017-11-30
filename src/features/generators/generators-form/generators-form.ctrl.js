@@ -1,10 +1,10 @@
 /* @ngInject */
-module.exports = function generatorFormController($scope, generatorService) {
+module.exports = function generatorFormController($scope, generatorService, nddAlert) {
     var self = this;
 
     var Generator = require('../models/generators.model');
     var Company = require('../models/company.model');
-
+    
     self.$onInit = function () {
         self.generator = new Generator();
         self.company = new Company();
@@ -54,15 +54,16 @@ module.exports = function generatorFormController($scope, generatorService) {
     };
 
     this.btnArquivoModal =  function() {
-        let caminho = null;
-        try {
-            caminho = self.generator.origem;
-            FerramentaController._arquivoBase(caminho);
-            //grava arquivo vindo do campo #arquivo
-            FerramentaController._salvarOrigem();
-        } catch (Exception) {
-            throw (Exception);
-        }
+        generatorService.getFile(self.generator._id).then(function (data) {
+            nddAlert.show({
+                title: "Massa de Dados",
+                messageText: '<textarea style="height: 300px; width: 500px;" rows="10" cols="100"> ' + data + '</textarea>',
+                buttonOk: "ok",
+                'class': "fa fa-2x fa-note",
+                disableAnimation : false,
+                disableEscape: false,
+            });
+        });
     };
 
 };
