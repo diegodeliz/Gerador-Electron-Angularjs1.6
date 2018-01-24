@@ -1,11 +1,9 @@
-var Todo = require('../models/generator');
+let GeneratorData = require('../models/generator');
+const fs = require('fs');
 
 function getGenerator(res) {
-    Todo.find(function (err, generator) {
-        if (err) {
-            res.send(err);
-        }
-
+    GeneratorData.find(function (err, generator) {
+        if (err) {res.send(err);}
         res.json(generator); 
     });
 };
@@ -24,12 +22,12 @@ module.exports = function (app) {
     });
     //GetByID
     app.get('/api/generator/:generator_id', function(req, res) {   
-        Todo.find({"_id": req.params.generator_id},{},function(e,docs){
+        GeneratorData.find({"_id": req.params.generator_id},{},function(e,docs){
             res.json(docs);
         });
     });
     app.post('/api/generator', function (req, res) {
-        Todo.create({
+        GeneratorData.create({
             text: req.body.text,
             origem: req.body.origem,
             origemName: req.body.origemName,
@@ -56,7 +54,7 @@ module.exports = function (app) {
         res.send(req.params.generator_id);
     });
     app.delete('/api/generator/:generator_id', function (req, res) {
-        Todo.remove({
+        GeneratorData.remove({
             _id: req.params.generator_id
         }, function (err, generator) {
             if (err)
@@ -65,7 +63,7 @@ module.exports = function (app) {
         });
     });
     app.put('/api/generator/:generator_id', (req, res) => {
-        Todo.findOneAndUpdate({_id: req.body._id}, {
+        GeneratorData.findOneAndUpdate({_id: req.body._id}, {
           $set: {
             text: req.body.text,
             origem: req.body.origem,

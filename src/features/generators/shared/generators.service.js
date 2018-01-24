@@ -16,6 +16,11 @@ module.exports = function generatorService(appConfig, $http) {
                 return result.data;
             });
         },
+        postFile : function(fileData) {
+            return $http.post(appConfig.apiUrl + 'file', fileData).then(function (data) {
+                return data.status;
+            });
+        },
         getById : function(id) {
             return $http.get(appConfig.apiUrl + 'generator/' + id).then(function (result) {
                 return result.data;

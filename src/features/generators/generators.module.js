@@ -6,6 +6,7 @@ var generatorsModule = angular.module('generatorsModule', [
     'uiSwitch',
     require('ndd-kendo-grid'),
     require('ndd-alert'),
+    require('ng-dialog'),
     require('ndd-confirm-dialog'),
     require('ndd-breadcrumb'),
     require('components/form-utils/form-utils.module'),

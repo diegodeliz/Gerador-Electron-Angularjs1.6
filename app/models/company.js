@@ -1,6 +1,8 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
-module.exports = mongoose.model('tbcompany', {
+// create a schema
+var company = new Schema({
     nome: {
         type: String,
         default: ''
@@ -14,3 +16,16 @@ module.exports = mongoose.model('tbcompany', {
         default: ''
     }
 });
+
+//exemplo de método
+company.methods.dudify = function () {
+    this.text = this.text + "-dude";
+    return this.text;
+};
+
+// the schema is useless so far
+// we need to create a model using it
+var Company = mongoose.model("tbcompany", company);
+
+// make this available to our users in our Node applications
+module.exports = Company;

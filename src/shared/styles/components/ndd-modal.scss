@@ -1,0 +1,19 @@
+.ngdialog.ngdialog-theme-default.modalFile {
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+
+.ngdialog.ngdialog-theme-default.modalFile .ngdialog-content {
+	width: 80%;
+	min-height: 80%;
+}
+
+.ngdialog.ngdialog-theme-default.modalFile .ngdialog-content textarea:active,
+.ngdialog.ngdialog-theme-default.modalFile .ngdialog-content textarea:focus {
+	border: 1px solid black;
+	box-shadow: none;
+}
+
+.ngdialog-content .dialog-content {
+    background: white;
+}

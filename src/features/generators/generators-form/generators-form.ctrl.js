@@ -1,5 +1,5 @@
 /* @ngInject */
-module.exports = function generatorFormController($scope, generatorService, nddAlert) {
+module.exports = function generatorFormController($scope, generatorService, ngDialog) {
     var self = this;
 
     var Generator = require('../models/generators.model');
@@ -25,6 +25,13 @@ module.exports = function generatorFormController($scope, generatorService, nddA
 
     $('#origem').on('change', function (event) {
         self.generator.origem = document.getElementById("origem").files[0].path;
+        console.log(self.generator.origem);
+        generatorService
+            .getFile(self.generator._id)
+            .then(function (data) {
+                let newData = {"id": self.generator._id, "data": data};
+                generatorService.postFile(newData);
+            });
     });
 
     this.$onChanges = function (changes) {
@@ -53,17 +60,23 @@ module.exports = function generatorFormController($scope, generatorService, nddA
         self.generator.serie = Math.floor(Math.random() * 900) + 1;
     };
 
-    this.btnArquivoModal =  function() {
-        generatorService.getFile(self.generator._id).then(function (data) {
-            nddAlert.show({
-                title: "Massa de Dados",
-                messageText: '<textarea style="height: 300px; width: 500px;" rows="10" cols="100"> ' + data + '</textarea>',
-                buttonOk: "salvar",
-                'class': "fa fa-2x fa-note",
-                disableAnimation : false,
-                disableEscape: false,
+    this.btnArquivoModal = function() {
+        if (!self.generator._id) var item = self.generator.origem; else var item = self.generator._id;
+        generatorService
+            .getFile(item)
+            .then(function (data) {
+                return ngDialog.openConfirm({ 
+                    template: '<header><i class="fa "></i><h4>Nota Base</h4></header>' +
+                    '<div class="dialog-content"><p>' + '<textarea id="arquivoBase" style="height: 100%; width: 100%;" rows="18">' + data + '</textarea>' + '</p> </div>' +
+                    '<div class="footer-actions row">' +
+                    '<button type="button" class="btn btn-default pull-right" ng-click="confirm()">Salvar</button></div>',
+                    className: 'ngdialog-theme-default modalFile', 
+                    plain: 'true'
+                }).then(function(success) {
+                    data = document.getElementById('arquivoBase').value;
+                    let newData = {"id": self.generator._id, "data": data};
+                    generatorService.postFile(newData);
+                });
             });
-        });
     };
-
 };

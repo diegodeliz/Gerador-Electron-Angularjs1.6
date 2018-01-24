@@ -201,7 +201,7 @@ module.exports = function generatorsListController($scope, generatorService, $st
             title: 'Confirmar Exclusão',
             messageText: 'Deseja realmente excluir ? Essa ação não pode ser desfeita.',
             buttonConfirmText: 'Confirmar',
-            buttonCancelText: 'Cancelar' // texto do botão de cancelar
+            buttonCancelText: 'Cancelar'
         }, function () {
             deleteOneByOne(selectedGenerators);
         });
