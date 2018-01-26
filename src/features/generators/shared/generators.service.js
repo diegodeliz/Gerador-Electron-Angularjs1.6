@@ -36,8 +36,13 @@ module.exports = function generatorService(appConfig, $http) {
                 return data.status;
             });
         },
-        teste : function(id) {
-            return $http.get(appConfig.apiUrl + 'teste/' + id).then(function (result) {
+        geraNotas : function(id) {
+            return $http.get(appConfig.apiUrl + 'geraNotas/' + id).then(function (result) {
+                return result.data;
+            });
+        },
+        pararGerarNotas : function(id) {
+            return $http.get(appConfig.apiUrl + 'pararGerarNotas/' + id).then(function (result) {
                 return result.data;
             });
         },

@@ -4,7 +4,7 @@
         <div class="file-field input-field">
             <div class="btn">
                 <span>Arquivo Base</span>
-                <input type="file" id="origem" id="origem" />
+                <input type="file" id="origem" name="origem" />
             </div>
             <div class="file-path-wrapper">
                 <input class="file-path " type="text" ng-model="$ctrl.generator.origemName" />
@@ -22,17 +22,36 @@
         </div>
     </div>
 
-    <div class="input-field col s12">
+    <div class="input-field col s8">
         <input id="destino" type="text" required ng-model="$ctrl.generator.destino" />
         <label class="active" for="destino">Caminho de Destino</label>
-    </div>
+      </div>
+
+      <div class="col s4">
+        <div class="left-align mgTop-25">
+          <div id="tipoEnvioSelect">
+            <div class="tipoEnvio">
+              <input type="radio" id="envioArquivo" ng-value="1" ng-model="$ctrl.generator.tipoEnvio" ng-checked="($ctrl.generator.tipoEnvio == 1)" />
+              <label for="envioArquivo">Arquivo</label>
+            </div>
+            <div class="tipoEnvio">
+              <input type="radio" id="jdbc" ng-value="2" ng-model="$ctrl.generator.tipoEnvio" />
+              <label for="jdbc">JDBC</label>
+            </div>
+            <div class="tipoEnvio">
+              <input type="radio" id="socket" ng-value="3" ng-model="$ctrl.generator.tipoEnvio" />
+              <label for="socket">Socket</label>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <div class="col s12 center-align">
         <div class="row">
             <div class="col s4">
                 <div class="left-align mgTop-25">
                     <div id="tipoEmissao">
-                        <input type="radio" id="normal" ng-value="1" ng-model="$ctrl.generator.tipoEmissao" />
+                        <input type="radio" id="normal" ng-value="1" ng-model="$ctrl.generator.tipoEmissao" ng-checked="($ctrl.generator.tipoEmissao == 1)" />
                         <label for="normal">Normal</label>
 
                         <input type="radio" id="contingencia" ng-value="9" ng-model="$ctrl.generator.tipoEmissao" />

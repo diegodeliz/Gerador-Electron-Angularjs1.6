@@ -549,6 +549,7 @@ ndd-filter-searchbar input[type=text]:not(.browser-default) {
     opacity: 1;
     border: none;
 }
+
 .k-button:active:hover,
 .k-button.k-state-active:hover {
     background-color: #3fc6a7 !important;
@@ -671,10 +672,32 @@ select.initialized:focus {
     outline: 0px;
 }
 
-.k-grid .k-button{
+.k-grid .k-button {
     margin: 0 !important;
     line-height: 1.72em !important;
     text-align: center;
     padding: .429em .700em !important;
     border: none;
 }
+
+.tipoEnvio {
+    display: inline !important;
+    margin-right: 12px;
+}
+
+.tipoEnvio label {
+    padding-left: 24px !important;
+}
+
+.tabs .tab a {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.tabs {
+    margin-bottom: 20px;
+    overflow: hidden !important;
+}
+
+.disabled {opacity: 0.7;}

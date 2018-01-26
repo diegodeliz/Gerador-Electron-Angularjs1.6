@@ -1,6 +1,12 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
-module.exports = mongoose.model('tbgenerator', {
+// create a schema
+var generator = new Schema({
+    tipoEnvio: {
+        type: Number,
+        default: '1'
+    },
     origem: {
         type: String,
         default: ''
@@ -15,11 +21,11 @@ module.exports = mongoose.model('tbgenerator', {
     },
     tipoEmissao: {
         type: Number,
-        default: ''
+        default: '1'
     },
     agentes: {
         type: Number,
-        default: ''
+        default: '1'
     },
     serie: {
         type: Number,
@@ -39,7 +45,7 @@ module.exports = mongoose.model('tbgenerator', {
     },
     fuso: {
         type: Number,
-        default: ''
+        default: '-2'
     },
     sleep: {
         type: Number,
@@ -56,5 +62,44 @@ module.exports = mongoose.model('tbgenerator', {
     ie: {
         type: String,
         default: ''
+    },
+    host: {
+        type: String,
+        default: 'localhost'
+    },
+    user: {
+        type: String,
+        default: 'root'
+    },
+    password: {
+        type: String,
+        default: 'vertrigo'
+    },
+    database: {
+        type: String,
+        default: 'nfce'
+    },
+    table: {
+        type: String,
+        default: 'nfceinput'
+    },
+    ipSocket: {
+        type: String,
+        default: 'localhost'
+    },
+    porta: {
+        type: String,
+        default: '8081'
+    },
+    out: {
+        type: String,
+        default: 'C:\Users\diego.liz\Desktop\Aplicação TCP-IP\out'
     }
 });
+
+// the schema is useless so far
+// we need to create a model using it
+var Generator = mongoose.model("tbgenerator", generator);
+
+// make this available to our users in our Node applications
+module.exports = Generator;

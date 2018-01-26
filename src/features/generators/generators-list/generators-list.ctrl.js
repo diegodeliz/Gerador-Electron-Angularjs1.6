@@ -149,8 +149,8 @@ module.exports = function generatorsListController($scope, generatorService, $st
         };
     };
 
-    function teste(id) {
-        generatorService.teste(id).then(function (data) {
+    function geraNotas(id) {
+        generatorService.geraNotas(id).then(function (data) {
             document.getElementById("numeroGerado").innerHTML = data;
         });
     }
@@ -160,7 +160,7 @@ module.exports = function generatorsListController($scope, generatorService, $st
 
         let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 
-        teste(dataItem._id);
+        geraNotas(dataItem._id);
 
         nddConfirmDialogService.showDialog({
             title: 'Gerarador de Notas Ativo',
@@ -170,6 +170,10 @@ module.exports = function generatorsListController($scope, generatorService, $st
             showClose: true,
             closeByDocument: false,
             closeByEscape: true
+        }, function() {
+            generatorService.pararGerarNotas(dataItem._id).then(function (data) {
+                generatorService.get();
+            });
         });
     }
 

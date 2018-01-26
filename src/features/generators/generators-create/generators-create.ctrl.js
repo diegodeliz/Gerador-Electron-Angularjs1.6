@@ -23,7 +23,7 @@ module.exports = function generatorCreateCtrl($scope, $state, generatorService, 
             self.isLoading = false;
             nddConfirmDialogService.showDialog({
                 title: 'Agente foi cadastrado.',
-                messageText: 'Agente ' + generator.text + ' cadastrado (a) com sucesso.',
+                messageText: 'Agente ' + generator.nomenclatura + ' cadastrado (a) com sucesso.',
                 buttonConfirmText: 'Ir para Agentes.',
                 hideCancel: true,
                 showClose: false,

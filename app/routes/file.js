@@ -6,15 +6,12 @@ function getFile(req, res) {
         "_id": req.params._id
     }, function(e,data){
         if (e) {
-            console.log("teste"); 
             return res.send(e);
         }
-
         let obj = JSON.parse(JSON.stringify(data)); 
         let dir = './src/data/';
-        if (!fs.existsSync(dir)){
+        if (!fs.existsSync(dir))
             fs.mkdirSync(dir);
-        } 
         if (!fs.existsSync(dir + 'arquivo' + req.params._id + '.tmp')){
             let conteudo = fs.readFileSync(obj[0].origem, 'utf8');
             fs.writeFileSync(dir + 'arquivo' + req.params._id + '.tmp', conteudo);
@@ -30,7 +27,9 @@ function getFile(req, res) {
 
 function saveFile(req, res) {
     let dir = './src/data/';  
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir);     
+    if (!fs.existsSync(dir)) 
+        fs.mkdirSync(dir);   
+    console.log(req.body.data);      
     fs.writeFileSync(dir + 'arquivo' + req.body.id + '.tmp', req.body.data);    
 };
 
