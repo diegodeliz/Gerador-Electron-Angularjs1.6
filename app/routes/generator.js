@@ -29,6 +29,8 @@ module.exports = function (app) {
     });
     app.post('/api/generator', function (req, res) {
         var Generator = new GeneratorData({
+            idNota: req.body._idNota,
+            nota: req.body.nota,
             tipoEnvio: req.body.tipoEnvio,
             text: req.body.text,
             origem: req.body.origem,
@@ -84,6 +86,8 @@ module.exports = function (app) {
     app.put('/api/generator/:generator_id', (req, res) => {
         GeneratorData.findOneAndUpdate({_id: req.body._id}, {
           $set: {
+            idNota: req.body._idNota,  
+            nota: req.body.nota,
             tipoEnvio: req.body.tipoEnvio,  
             text: req.body.text,
             origem: req.body.origem,

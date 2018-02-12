@@ -6,8 +6,8 @@ module.exports = function generatorService(appConfig, $http) {
                 return result.data;
             });
         },
-        getCompanies : function() {
-            return $http.get(appConfig.apiUrl + 'company').then(function (result) {
+        getNote : function() {
+            return $http.get(appConfig.apiUrl + 'note').then(function (result) {
                 return result.data;
             });
         },

@@ -27,7 +27,6 @@ function createWindow () {
       fs.unlinkSync(dir);
     }
   });
-  
 }
 
 app.on('ready', createWindow);

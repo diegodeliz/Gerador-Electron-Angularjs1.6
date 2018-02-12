@@ -19,6 +19,11 @@ module.exports = function navbarController( $state, nddSidebarService) {
                     {
                         text: 'Empresa',
                         action: toCompanies
+                    }
+                    ,
+                    {
+                        text: 'Nota Fiscal',
+                        action: toFiscalNotes
                     }]
             },
             {
@@ -34,5 +39,9 @@ module.exports = function navbarController( $state, nddSidebarService) {
 
     function toCompanies() {
         $state.go('app.companies.list');
+    }
+
+    function toFiscalNotes() {
+        $state.go('app.notes.list');
     }
 }

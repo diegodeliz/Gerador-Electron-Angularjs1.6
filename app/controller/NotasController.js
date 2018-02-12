@@ -17,7 +17,7 @@ let
     destino,
     fuso,
     nomenclatura,
-    origem,
+    notaBanco,
     quantidade,
     serie,
     sleep,
@@ -32,7 +32,6 @@ let
     table,
     xml = false,
     agenteId = 0,
-    text,
     ipSocket,
     porta,
     out,
@@ -40,16 +39,17 @@ let
 ;
 
 class NotasController {
-    static run(Generator) {
+
+    run(Generator) {
         id = Generator._id;
         comunicacao = Generator.tipoEnvio;
-        text = Generator.text;
-        origem = Generator.origem;
+        notaBanco = Generator.nota;
         agentes = Generator.agentes;
         cnpj = Generator.cnpj;
         ie = Generator.ie;
         destino = Generator.destino;
         fuso = Generator.fuso;
+        fuso = fuso.toString();
         nomenclatura = Generator.nomenclatura;
         quantidade = Generator.quantidade;
         serie = Generator.serie;
@@ -68,50 +68,53 @@ class NotasController {
         this.gerarNotas();
     }
 
-    static gerarNotas() {
+    gerarNotas() {
         if (continua === false) {
             clearTimeout();
-        }
-        else {
+        } else {
             let numNota = i + 1;
             let nota = this.criarNota(i);
             let notaNumero = parseInt(numeroInicio) + i;
 
-            if (agenteId >= agentes)
-                agenteId = 1;
-            else
-                agenteId++;
+            if (agenteId >= agentes) agenteId = 1; else agenteId++;
+
             console.log('agente ' + agenteId);
+
             this.criarArquivo(nota, notaNumero, agenteId);
+
             if (i < quantidade - 1) {
                 setTimeout(() => {
                     i++;
                     this.gerarNotas();
                 }, parseInt(sleep));
-            }
-            else {
-                this.atualizaFormulario();
+            } else {
                 console.log('Todas as notas foram geradas.');
             }
         }
     }
-    static pararGerarNotas() {
-        console.log('Parando as notas');
+
+    pararGerarNotas() {
         continua = false;
         this.atualizaFormulario();
     }
 
-    static atualizaFormulario() {
+    atualizaFormulario() {
         let ondeParou = parseInt(numeroInicio) + i;
         let numero = ondeParou + 1;
-
+        continua = true;
+        i = 0;
         //salvar os dados
         GeneratorData.findOneAndUpdate({_id: id}, {
             $set: { numero: numero }
-        }, { sort: {_id: -1}, upsert: true })   
+        }, {
+            sort: {_id: -1}, upsert: true
+        }, (err, result) => {
+            if (err) return res.send(err)
+            console.log("Atualizado para o número: " + numero);
+        })   
     }
    
-    static enviarBanco(conteudo, caminho) {
+    enviarBanco(conteudo, caminho) {
         const connection = db.createConnection({
             host: host,
             user: user,
@@ -130,7 +133,7 @@ class NotasController {
         );
     }
 
-    static enviarSocket(conteudo, caminho, agenteId) {
+    enviarSocket(conteudo, caminho, agenteId) {
         let client = new net.Socket();
         let multiplasPortas = parseInt(porta) + parseInt(agenteId) - 1;
         client.connect(multiplasPortas, ipSocket, () => {
@@ -138,9 +141,7 @@ class NotasController {
             console.log(`${caminho}_TCPMSG;${conteudo}`);
             client.write(`${caminho}_TCPMSG;${conteudo}`);
             client.end();
-        });
-               
-        
+        });   
         client.on('data', function(data) {
             console.log(data.toString());
             let retorno = [];
@@ -148,7 +149,6 @@ class NotasController {
             fs.writeFileSync(out + '\\' + retorno[0], retorno[1]);
             client.destroy(); // kill client after server's response
         });
-        
         client.on('close', function() {
             console.log('Connection closed');
         });
@@ -159,8 +159,8 @@ class NotasController {
         }); 
     }
 
-    static criarNota(nota) {
-        let notaConteudo = null;
+    criarNota(nota) {
+        let notaConteudo = notaBanco;
         let numeroNota = parseInt(numeroInicio) + nota;
         let data = new Date();
         let mezinho = data.getMonth() + 1;
@@ -177,17 +177,9 @@ class NotasController {
         let codigoAleatorio = (Math.floor(Math.random() * (99999999 - 10000000 + 1)) + 10000000);
         let ano = data.getFullYear().toString().substr(-2);
 
-        try {
-            xml = false;
-            notaConteudo = fs.readFileSync(dir + 'arquivo' + id + '.tmp', 'utf8');
-            if (notaConteudo.includes('<?xml'))
-                xml = true;
-
-        } catch (error) {
-            this.criarArquivo = origem;
-            notaConteudo = fs.readFileSync(dir + 'arquivo' + id + '.tmp', 'utf8');
-            console.log("Arquivo .tmp não encontrado. Gerando novo arquivo com base na URL de origem" + error);
-        }
+        xml = false;
+        if (notaConteudo.includes('<?xml'))
+            xml = true;
 
         let ks = notaConteudo.split("\n");
         for (let value of ks) {
@@ -211,13 +203,11 @@ class NotasController {
         notaConteudo = notaConteudo.replace('${CNPJ}', cnpj);
         notaConteudo = notaConteudo.replace('${IE}', ie);
         let linhas = notaConteudo.split('\n');
-        
         let totItens = 1;
         let idItem = 1;
         let todosItens = [];
         let linhasInsert = [];
         while(idItem <= totItens){
-            
             for(let items of linhas){
                 let removeItem;
                 if(items.includes('${item}')){
@@ -242,8 +232,7 @@ class NotasController {
                     notaParaEnviar.push(linhasInsert.join('\n').toString()); 
                     add = true;  
                 }  
-            }
-            else
+            } else
                 notaParaEnviar.push(items);
         }   
 
@@ -264,7 +253,7 @@ class NotasController {
         return notaConteudo;
     }
 
-    static criarArquivo(conteudo, numNota, agenteId) {
+    criarArquivo(conteudo, numNota, agenteId) {
         let caminho;
         let nome = nomenclatura.substring(0, nomenclatura.length - 4);
         let formatAgente = ("000" + agenteId).slice(-3);
@@ -280,12 +269,12 @@ class NotasController {
         else if (comunicacao == 3)
             this.enviarSocket(conteudo, caminho, agenteId);
         else
-            console.log(destino + '\\' + caminho);
-            fs.writeFileSync(destino + '\\' + caminho, conteudo);
+            console.log(destino + agenteId + '\\in\\' + caminho);
+            fs.writeFileSync(destino + agenteId + '\\in\\' + caminho, conteudo);
     }
 
     //Calcula o digito verificador
-    static calculaDV(nNF) {
+    calculaDV(nNF) {
         let soma = 0;
         let resto = 0;
         let peso = [4, 3, 2, 9, 8, 7, 6, 5];
@@ -302,7 +291,6 @@ class NotasController {
     get destino() { return destino; }
     get fuso() { return fuso; }
     get nomenclatura() { return nomenclatura; }
-    get origem() { return origem; }
     get serie() { return serie; }
     get sleep() { return sleep; }
     get tipoEmissao() { return tipoEmissao; }

@@ -1,9 +1,9 @@
 /* @ngInject */
 /* global kendo */
-module.exports = function generatorsListController($scope, generatorService, $state, nddKendoGridApiService, nddConfirmDialogService) {
+module.exports = function generatorsListController($scope, generatorService, $state, nddKendoGridApiService, nddConfirmDialogService, ngDialog) {
     let self = this;
     let grid, detailsTemplate;
-    
+
     let dataSource = new window.kendo.data.DataSource({
         transport: {
             read: {
@@ -149,34 +149,49 @@ module.exports = function generatorsListController($scope, generatorService, $st
         };
     };
 
-    function geraNotas(id) {
-        generatorService.geraNotas(id).then(function (data) {
-            document.getElementById("numeroGerado").innerHTML = data;
-        });
-    }
-
     function showDetails(e) {
         e.preventDefault();
-
         let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 
-        geraNotas(dataItem._id);
+        self.inicioNota = 1;
+        self.finalNota = dataItem.quantidade;
 
-        nddConfirmDialogService.showDialog({
-            title: 'Gerarador de Notas Ativo',
-            messageText: '<p id="numeroGerado">Gerando nota ' + dataItem.numero + '/' + dataItem.quantidade + '</p>',
-            buttonConfirmText: 'Clique para Encerrar o Processo',
-            hideCancel: true,
-            showClose: true,
+        var dialog = ngDialog.open({
+            template: '\
+                <header><i class="fa fa-2x fa-check"></i><h4> Gerador de Massas Ativo </h4></header>\
+                <div class="dialog-content">\
+                    <p id="numeroGerado">Gerando nota <span id="inicioNota">' + self.inicioNota + '</span>/<span id="finalNota">' + dataItem.quantidade + '</span></p>\
+                </div>\
+                <div class="footer-actions row">\
+                    <button id="dialog-action-confirm" type="button" class="btn btn-default" ng-click="closeThisDialog()"> Clique para encerrar o processo </button>\
+                </div>',
+            plain: true,
+            closeByEscape: false,
+            closeByNavigation: false,
+            showClose: false,
             closeByDocument: false,
-            closeByEscape: true
-        }, function() {
+            scope: $scope,
+            resolve: {
+                dep: function depFactory() {
+                    (function alteraNumero(i) {
+                        setTimeout(function () {
+                            document.getElementById("inicioNota").innerHTML = self.inicioNota;
+                            self.inicioNota++;
+                            if (--i) alteraNumero(i);
+                        }, dataItem.sleep)
+                    })(dataItem.quantidade);
+
+                    generatorService.geraNotas(dataItem._id);
+                }
+            }
+        });
+
+        dialog.closePromise.then(function (data) {
             generatorService.pararGerarNotas(dataItem._id).then(function (data) {
-                generatorService.get();
+                nddKendoGridApiService.reload('generatorsGrid');
             });
         });
     }
-
     function onEditAction(selected) {
         $state.go('app.generators.detail.dashboard', {
             id: selected._id

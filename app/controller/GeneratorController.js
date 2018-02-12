@@ -1,11 +1,11 @@
 const NotasController = require('./NotasController.js');
-
+let notasController = new NotasController();
 class GeneratorController {
     static _gerarNotas(Generator) {
-        NotasController.run(Generator);
+        notasController.run(Generator);
     }
     static _pararGerarNotas(Generator) {
-        //NotasController.pararGerarNotas();
+        notasController.pararGerarNotas();
     }
 }
 

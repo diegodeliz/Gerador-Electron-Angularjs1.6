@@ -1,6 +1,8 @@
 function Generator() {
     this._id = '';
+    this._idNota = '';
     this.origem = '';
+    this.nota = '';
     this.origemName = '';    
     this.destino = 'C:\\Program Files\\NDDigital\\eForms_NFCe\\Agent Service_';
     this.tipoEmissao = '1';

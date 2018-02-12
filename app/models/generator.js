@@ -7,6 +7,14 @@ var generator = new Schema({
         type: Number,
         default: '1'
     },
+    _idNota: {
+        type: String,
+        default: ''
+    },
+    nota: {
+        type: String,
+        default: ''
+    },
     origem: {
         type: String,
         default: ''

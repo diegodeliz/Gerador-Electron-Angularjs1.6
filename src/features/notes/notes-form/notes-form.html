@@ -1,0 +1,44 @@
+<form name="formNotes" class="form" novalidate>
+    <br />
+    <div class="file-field input-field col s8">
+        <input id="nome" type="text" required ng-model="$ctrl.note.nome" />
+        <label class="active" for="nome">Informe um nome</label>
+    </div>
+
+    <div class="col s9 center-align">
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>Arquivo Base</span>
+                <input type="file" id="origem" name="origem" />
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path " type="text" ng-model="$ctrl.note.origemName" />
+            </div>
+        </div>
+    </div>
+    <div class="col s3 center-align">
+        <div class="file-field input-field arquivoBaseModal">
+            <a class="modal-trigger" ng-click="$ctrl.btnArquivoModal()">
+                <button class="waves-effect waves-light btn-floating">
+                    <i class="small material-icons right">assignment</i>
+                </button>
+                <span>Arquivo Base</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="col s5 center-align" style="margin-top: 20px;">
+        <div class="file-field input-field">
+            <select ng-options="x.nome for x in $ctrl.company" ng-model="company" ng-required="true" ng-change="$ctrl.selectCompany(company)"
+                options-class="{ 'is-eligible' : eligible, 'not-eligible': !eligible }">
+                <option value="" disabled selected>{{$ctrl.note.empresa}}</option>
+            </select>
+            <label class="">Empresa Emissora</label>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('select').material_select();
+        });
+    </script>
+</form>

@@ -1,26 +1,11 @@
 <form name="formGenerators" class="form" novalidate>
 
-    <div class="col s9 center-align">
-        <div class="file-field input-field">
-            <div class="btn">
-                <span>Arquivo Base</span>
-                <input type="file" id="origem" name="origem" />
-            </div>
-            <div class="file-path-wrapper">
-                <input class="file-path " type="text" ng-model="$ctrl.generator.origemName" />
-            </div>
-        </div>
-    </div>
-    <div class="col s3 center-align">
-        <div class="file-field input-field arquivoBaseModal">
-            <a class="modal-trigger" ng-click="$ctrl.btnArquivoModal()">
-                <button class="waves-effect waves-light btn-floating">
-                    <i class="small material-icons right">assignment</i>
-                </button>
-                <span>Arquivo Base</span>
-            </a>
-        </div>
-    </div>
+    <div class="input-field col s8">
+        <select ng-options="x.nome for x in $ctrl.note" ng-model="note" ng-required="true" ng-change="$ctrl.selectNote(note)" options-class="{ 'is-eligible' : eligible, 'not-eligible': !eligible }">
+            <option value="" disabled selected>{{$ctrl.generator.empresa}}</option>
+        </select>
+        <label class="">Empresa Emissora</label>
+    </div> 
 
     <div class="input-field col s8">
         <input id="destino" type="text" required ng-model="$ctrl.generator.destino" />
@@ -85,21 +70,11 @@
                 <input id="quantidade" type='number' step=1 required ng-model="$ctrl.generator.quantidade" />
                 <label id="lblQuantidade" class="active" for="quantidade">Quantidade de Notas</label>
             </div>
-            <div class="input-field col s2">
-                <input id="sleep" type="text" required ng-model="$ctrl.generator.sleep">
-                <label id="lblSleep" class="active" for="sleep">Sleep</label>
-            </div>
         </div>
     </div>
 
     <div class="col s12 center-align">
-        <div class="row">
-            <div class="input-field col s5">
-                <select ng-options="x.nome for x in $ctrl.company" ng-model="company" ng-required="true" ng-change="$ctrl.selectCompany(company)" options-class="{ 'is-eligible' : eligible, 'not-eligible': !eligible }">
-                    <option value="" disabled selected>{{$ctrl.generator.empresa}}</option>
-                </select>
-                <label class="">Empresa Emissora</label>
-            </div>           
+        <div class="row">          
             <div class="input-field col s5">
                 <input id="nomenclatura" type="text" required ng-model="$ctrl.generator.nomenclatura" />
                 <label id="lblNomenclatura" class="active" for="nomenclatura">Nomenclatura do Arquivo</label>
@@ -107,6 +82,10 @@
             <div class="input-field col s2">
                 <input type='number' step=1 id="fuso" required ng-model="$ctrl.generator.fuso" />
                 <label id="lblFuso" class="active" for="fuso">Fuso</label>
+            </div>
+            <div class="input-field col s2">
+                <input id="sleep" type="text" required ng-model="$ctrl.generator.sleep">
+                <label id="lblSleep" class="active" for="sleep">Sleep</label>
             </div>
         </div>
     </div>
