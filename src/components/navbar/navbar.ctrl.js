@@ -6,7 +6,7 @@ module.exports = function navbarController( $state, nddSidebarService) {
 
     self.dropdownOptions = {
         button: {
-            text: 'NFCe',
+            text: 'Menu',
         },
         menu: [
             {
@@ -19,12 +19,20 @@ module.exports = function navbarController( $state, nddSidebarService) {
                     {
                         text: 'Empresa',
                         action: toCompanies
-                    }
-                    ,
+                    },
                     {
                         text: 'Nota Fiscal',
                         action: toFiscalNotes
-                    }]
+                    },
+                    {
+                        text: 'JDBC',
+                        action: toJdbc
+                    },
+                    {
+                        text: 'Socket',
+                        action: toSocket
+                    }
+                ]
             },
             {
                 text: 'Sair',
@@ -43,5 +51,13 @@ module.exports = function navbarController( $state, nddSidebarService) {
 
     function toFiscalNotes() {
         $state.go('app.notes.list');
+    }
+
+    function toJdbc() {
+        $state.go('app.jdbcs.list');
+    }
+
+    function toSocket() {
+        $state.go('app.sockets.list');
     }
 }

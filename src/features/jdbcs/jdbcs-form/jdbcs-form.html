@@ -1,0 +1,58 @@
+<form name="formJdbcs" class="form" novalidate>
+
+    <br />
+    <div class="input-field col s12">
+        <input id="nome" type="text" required ng-model="$ctrl.jdbc.nome" />
+        <label class="active" for="nome">Nome</label>
+    </div>
+
+    <div class="input-field col s4">
+        <input id="host" type="text" required ng-model="$ctrl.jdbc.host" />
+        <label class="active" for="host">Host</label>
+    </div>
+
+    <div class="input-field col s4">
+        <input id="usuario" type="text" required ng-model="$ctrl.jdbc.usuario" />
+        <label class="active" for="usuario">Usuário</label>
+    </div>
+
+    <div class="input-field col s4">
+        <input id="senha" type="password" required ng-model="$ctrl.jdbc.senha" />
+        <label class="active" for="senha">Senha</label>
+    </div>
+
+    <div class="input-field col s4">
+        <input id="banco" type="text" required ng-model="$ctrl.jdbc.banco" />
+        <label class="active" for="banco">Banco</label>
+    </div>
+
+    <div class="input-field col s4">
+        <input id="entrada" type="text" required ng-model="$ctrl.jdbc.entrada" />
+        <label class="active" for="entrada">Entrada</label>
+    </div>
+
+    <div class="input-field col s4">
+        <input id="saida" type="text" required ng-model="$ctrl.jdbc.saida" />
+        <label class="active" for="saida">Saída</label>
+    </div>
+
+    <div class="input-field col s12">
+        <input id="destino" type="text" required ng-model="$ctrl.jdbc.destino" />
+        <label class="active" for="destino">Destino</label>
+    </div>
+
+    <div class="col s4">
+        <div class="left-align mgTop-25">
+            <div id="arquivos">
+                <div class="tipoEnvio">
+                    <input id="captura_retorno" type="checkbox" required ng-model="$ctrl.jdbc.captura_retorno" ng-checked="($ctrl.jdbc.captura_retorno === true)"/>
+                    <label class="active" for="captura_retorno">Captura Retorno</label>  
+                </div>
+                <div class="tipoEnvio">
+                    <input id="apaga_saida" type="checkbox" required ng-model="$ctrl.jdbc.apaga_saida" ng-checked="($ctrl.jdbc.apaga_saida === true)"/>
+                    <label class="active" for="apaga_saida">Apagar Saída</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

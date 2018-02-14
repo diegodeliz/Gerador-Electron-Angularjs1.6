@@ -1,6 +1,6 @@
 /* @ngInject */
 /* global kendo */
-module.exports = function generatorsListController($scope, generatorService, $state, nddKendoGridApiService, nddConfirmDialogService, ngDialog) {
+module.exports = function generatorsListController($scope, generatorService, $state, nddKendoGridApiService, nddConfirmDialogService, ngDialog, formUtilsService) {
     let self = this;
     let grid, detailsTemplate;
 
@@ -152,8 +152,8 @@ module.exports = function generatorsListController($scope, generatorService, $st
     function showDetails(e) {
         e.preventDefault();
         let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-
         self.inicioNota = 1;
+        self.contadorNota = dataItem.numero;
         self.finalNota = dataItem.quantidade;
 
         var dialog = ngDialog.open({
@@ -161,6 +161,8 @@ module.exports = function generatorsListController($scope, generatorService, $st
                 <header><i class="fa fa-2x fa-check"></i><h4> Gerador de Massas Ativo </h4></header>\
                 <div class="dialog-content">\
                     <p id="numeroGerado">Gerando nota <span id="inicioNota">' + self.inicioNota + '</span>/<span id="finalNota">' + dataItem.quantidade + '</span></p>\
+                    <h5>Nota: <span id="contadorNota">' + self.contadorNota + '</span></h5>\
+                    <p id="finalizado"><img ng-if="$ctrl.isLoading" height="18" src="../src/shared/images/loading-circle.gif" alt=""></p>\
                 </div>\
                 <div class="footer-actions row">\
                     <button id="dialog-action-confirm" type="button" class="btn btn-default" ng-click="closeThisDialog()"> Clique para encerrar o processo </button>\
@@ -174,13 +176,28 @@ module.exports = function generatorsListController($scope, generatorService, $st
             resolve: {
                 dep: function depFactory() {
                     (function alteraNumero(i) {
+                        self.isLoading = true;
                         setTimeout(function () {
-                            document.getElementById("inicioNota").innerHTML = self.inicioNota;
-                            self.inicioNota++;
-                            if (--i) alteraNumero(i);
-                        }, dataItem.sleep)
+                            //seta um tempo estimado para geração de massas
+                            document.getElementById("finalizado").innerHTML = estimativaTempo(self.inicioNota - 1, dataItem.quantidade, dataItem.sleep);
+                            setTimeout(function () {
+                                self.isLoading = false;
+                                // se quantidade for diferente do total geradas, seta os novos valores em tela
+                                if (self.inicioNota != dataItem.quantidade) {
+                                    document.getElementById("finalizado").innerHTML = estimativaTempo(self.inicioNota - 1, dataItem.quantidade, dataItem.sleep);
+                                    document.getElementById("inicioNota").innerHTML = self.inicioNota + 1;
+                                    document.getElementById("contadorNota").innerHTML = self.contadorNota;
+                                }
+                                self.inicioNota++;
+                                self.contadorNota++;
+                                if (--i)
+                                    alteraNumero(i)
+                                else
+                                    document.getElementById("finalizado").innerHTML = "Todas as Notas Foram Geradas";
+                            }, dataItem.sleep)
+                        }, 50)
                     })(dataItem.quantidade);
-
+                    //dispara o gerar notas no backend
                     generatorService.geraNotas(dataItem._id);
                 }
             }
@@ -192,6 +209,31 @@ module.exports = function generatorsListController($scope, generatorService, $st
             });
         });
     }
+
+    function estimativaTempo(i, quantidade, sleep) {
+        let estimativa = ((quantidade - i) * sleep) - sleep;
+        let string;
+        let dia, hora, minuto, segundos;
+        segundos = Math.floor(estimativa / 1000);
+        minuto = Math.floor(segundos / 60);
+        segundos = segundos % 60;
+        hora = Math.floor(minuto / 60);
+        minuto = minuto % 60;
+        dia = Math.floor(hora / 24);
+        hora = hora % 24;
+
+        if( dia > 0)
+            string = `Estimativa: ${dia} dia(s) ${hora} h ${minuto} m ${segundos} s`;
+        else if(hora > 0)
+            string = `Estimativa: ${hora} h ${minuto} m ${segundos} s`;
+        else if(minuto > 0)
+            string = `Estimativa: ${minuto} m ${segundos} s`;
+        else
+            string = `Estimativa: ${segundos} s`;
+
+        return string;
+    }
+    
     function onEditAction(selected) {
         $state.go('app.generators.detail.dashboard', {
             id: selected._id

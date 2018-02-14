@@ -7,6 +7,21 @@
         <label class="">Empresa Emissora</label>
     </div> 
 
+    <div class="col s4">
+        <div class="left-align mgTop-25">
+            <div id="arquivos">
+                <div class="tipoEnvio">
+                    <input type="checkbox" id="cancelamento" ng-value="1" ng-model="$ctrl.generator.cancelamento" ng-checked="($ctrl.generator.cancelamento == 1)" />
+                    <label for="cancelamento">Cancelamento</label>    
+                </div>
+                <div class="tipoEnvio">
+                    <input type="checkbox" id="ped_ajuste" ng-value="9" ng-model="$ctrl.generator.ped_ajuste" ng-checked="($ctrl.generator.ped_ajuste == 9)" />
+                    <label for="ped_ajuste">ped_ajuste</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="input-field col s8">
         <input id="destino" type="text" required ng-model="$ctrl.generator.destino" />
         <label class="active" for="destino">Caminho de Destino</label>

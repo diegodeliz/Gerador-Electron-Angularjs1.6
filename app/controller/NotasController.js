@@ -1,4 +1,8 @@
-let GeneratorData = require('../models/generator');
+const GeneratorData = require('../models/generator');
+const EnvioArquivo = require('./senders/EnvioArquivo.js');
+const EnvioBanco = require('./senders/EnvioBanco.js');
+const EnvioSocket = require('./senders/EnvioSocket.js');
+
 let dir = './src/data/';
 
 const jsonfile = require('jsonfile-promised');
@@ -36,7 +40,7 @@ let
     porta,
     out,
     id
-;
+    ;
 
 class NotasController {
 
@@ -104,16 +108,16 @@ class NotasController {
         continua = true;
         i = 0;
         //salvar os dados
-        GeneratorData.findOneAndUpdate({_id: id}, {
+        GeneratorData.findOneAndUpdate({ _id: id }, {
             $set: { numero: numero }
         }, {
-            sort: {_id: -1}, upsert: true
-        }, (err, result) => {
-            if (err) return res.send(err)
-            console.log("Atualizado para o número: " + numero);
-        })   
+                sort: { _id: -1 }, upsert: true
+            }, (err, result) => {
+                if (err) return res.send(err)
+                console.log("Atualizado para o número: " + numero);
+            })
     }
-   
+
     enviarBanco(conteudo, caminho) {
         const connection = db.createConnection({
             host: host,
@@ -141,22 +145,22 @@ class NotasController {
             console.log(`${caminho}_TCPMSG;${conteudo}`);
             client.write(`${caminho}_TCPMSG;${conteudo}`);
             client.end();
-        });   
-        client.on('data', function(data) {
+        });
+        client.on('data', function (data) {
             console.log(data.toString());
             let retorno = [];
             retorno = data.toString().split(/_TCPMSG;/);
             fs.writeFileSync(out + '\\' + retorno[0], retorno[1]);
             client.destroy(); // kill client after server's response
         });
-        client.on('close', function() {
+        client.on('close', function () {
             console.log('Connection closed');
         });
-        client.on('error', function(error) {
+        client.on('error', function (error) {
             console.log(error);
             console.log(error.toString());
-            fs.writeFileSync(out + '\\' + 'ERRO_' + caminho, error.toString());            
-        }); 
+            fs.writeFileSync(out + '\\' + 'ERRO_' + caminho, error.toString());
+        });
     }
 
     criarNota(nota) {
@@ -164,7 +168,7 @@ class NotasController {
         let numeroNota = parseInt(numeroInicio) + nota;
         let data = new Date();
         let mezinho = data.getMonth() + 1;
-        let mes = ("00" +  mezinho).slice(-2);
+        let mes = ("00" + mezinho).slice(-2);
         let dia = ("00" + data.getDate()).slice(-2);
         let hora = ("00" + data.getHours()).slice(-2);
         let minuto = ("00" + data.getMinutes()).slice(-2);
@@ -207,47 +211,47 @@ class NotasController {
         let idItem = 1;
         let todosItens = [];
         let linhasInsert = [];
-        while(idItem <= totItens){
-            for(let items of linhas){
+        while (idItem <= totItens) {
+            for (let items of linhas) {
                 let removeItem;
-                if(items.includes('${item}')){
+                if (items.includes('${item}')) {
                     let removeItem;
                     removeItem = items.replace('${item}', '');
-                    if(removeItem.includes('${idItem}'))
-                        linhasInsert.push(removeItem.replace(/\${idItem}/g,idItem)); 
+                    if (removeItem.includes('${idItem}'))
+                        linhasInsert.push(removeItem.replace(/\${idItem}/g, idItem));
                     else
-                        linhasInsert.push(removeItem);    
+                        linhasInsert.push(removeItem);
                 }
             }
             todosItens.push(linhasInsert.toString());
-            idItem ++;
+            idItem++;
         }
         let notaParaEnviar = [];
         let add = false;
-        for(let items of linhas){
+        for (let items of linhas) {
             //console.log(items);
             let removeItem;
-            if(/\${item}/g.test(items)){
-                if(add == false){
-                    notaParaEnviar.push(linhasInsert.join('\n').toString()); 
-                    add = true;  
-                }  
+            if (/\${item}/g.test(items)) {
+                if (add == false) {
+                    notaParaEnviar.push(linhasInsert.join('\n').toString());
+                    add = true;
+                }
             } else
                 notaParaEnviar.push(items);
-        }   
+        }
 
         notaConteudo = notaParaEnviar.join('\n').toString();
-        let valorTotal = parseFloat(totItens*51.6000);
-        let valorPis = parseFloat(51.6000*1.65/100).toFixed(2);
-        let valorCofins = parseFloat(51.6000*7.60/100).toFixed(2);
+        let valorTotal = parseFloat(totItens * 51.6000);
+        let valorPis = parseFloat(51.6000 * 1.65 / 100).toFixed(2);
+        let valorCofins = parseFloat(51.6000 * 7.60 / 100).toFixed(2);
         let vTotTrib = parseFloat(19.95 * totItens);
-        let vFCPSTRet = parseFloat(51.6000*2.00/100).toFixed(2);
-        while(/\${valorTotal}/.test(notaConteudo)){
+        let vFCPSTRet = parseFloat(51.6000 * 2.00 / 100).toFixed(2);
+        while (/\${valorTotal}/.test(notaConteudo)) {
             notaConteudo = notaConteudo.replace('${valorTotal}', valorTotal.toFixed(2));
         }
-        notaConteudo = notaConteudo.replace('${valorPis}', (valorPis*totItens).toFixed(2));
-        notaConteudo = notaConteudo.replace('${valorCofins}', (valorCofins*totItens).toFixed(2));
-        notaConteudo = notaConteudo.replace('${vFCPSTRet}', (vFCPSTRet*totItens).toFixed(2));
+        notaConteudo = notaConteudo.replace('${valorPis}', (valorPis * totItens).toFixed(2));
+        notaConteudo = notaConteudo.replace('${valorCofins}', (valorCofins * totItens).toFixed(2));
+        notaConteudo = notaConteudo.replace('${vFCPSTRet}', (vFCPSTRet * totItens).toFixed(2));
         notaConteudo = notaConteudo.replace('${vTotTrib}', vTotTrib.toFixed(2));
         console.log(notaConteudo);
         return notaConteudo;
@@ -264,13 +268,17 @@ class NotasController {
             caminho = nome + numNota + '_ped_env.xml';
 
         console.log(`Agente: ${nome}`);
-        if (comunicacao == 2)
-            this.enviarBanco(conteudo, caminho);
-        else if (comunicacao == 3)
-            this.enviarSocket(conteudo, caminho, agenteId);
+
+        if (comunicacao == 2) {
+            let envioBanco = new EnvioBanco();
+            envioBanco.iniciar().then(() => envioBanco.enviar(conteudo, caminho));
+        }
+        else if (comunicacao == 3) {
+            let envioSocket = new EnvioSocket();
+            envioSocket.iniciar().then(() => envioSocket.enviar(conteudo, caminho, agenteId));
+        }
         else
-            console.log(destino + agenteId + '\\in\\' + caminho);
-            fs.writeFileSync(destino + agenteId + '\\in\\' + caminho, conteudo);
+            new EnvioArquivo(destino, caminho, conteudo, agenteId);
     }
 
     //Calcula o digito verificador

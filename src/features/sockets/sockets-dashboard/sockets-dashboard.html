@@ -1,0 +1,32 @@
+<div class="ndd-entity-editor__form-content">
+    <div class="row" ng-if="!$ctrl.isEditing && !$ctrl.isLoading">
+        <div class="col-sm-6">
+            <div class="col s12 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Nome</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.socket.nome"></span>
+            </div>
+            <div class="col s2 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">CNPJ</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.socket.cnpj"></span>
+            </div>
+            <div class="col s10 ndd-entity-editor__form-group">
+                <span class="ndd-entity-editor__form-label">Inscrição Estadual</span>
+                <br>
+                <span class="ndd-entity-editor__form-data" ng-bind="$ctrl.socket.ie"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="$ctrl.isEditing && !$ctrl.isLoading">
+        <div class="col-sm-6">
+            <socket-form socket="$ctrl.socket" get-data="$ctrl.formGetData" get-form="$ctrl.getForm"></socket-form>
+        </div>
+    </div>
+    <img ng-if="$ctrl.isLoading" class="form-utils__spinner" src="~shared/images/spinner.gif" alt="">
+</div>
+<div class="ndd-entity-editor__form-footer">
+    <button ng-if="$ctrl.isEditing" ng-click="$ctrl.save()" class="ndd-button ndd-button--highlighted" type="button">Salvar</button>
+    <button ng-if="!$ctrl.isEditing" ng-click="$ctrl.edit()" class="ndd-button ndd-button--highlighted" type="button">Editar</button>
+    <button ui-sref="app.sockets.list" class="ndd-button" type="button">Cancelar</button>
+</div>
