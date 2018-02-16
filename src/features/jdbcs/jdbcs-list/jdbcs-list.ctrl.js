@@ -65,14 +65,15 @@ module.exports = function jdbcsListController($scope, JdbcsService, $state, nddK
                 {
                     field: 'nome',
                     title: 'Nome',
-                    width: 400,
-                    headerAttributes: { "class": "left" },
+                    width: 290,
+                    headerAttributes: { "class": "center" },
+                    attributes: { "class": "n-grid-column-align-center" },
                     template: '#:nome#'
                 },
                 {
                     field: 'host',
                     title: 'Host',
-                    width: 160,
+                    width: 200,
                     headerAttributes: { "class": "center" },
                     attributes: { "class": "n-grid-column-align-center" },
                     template: '#:host#'
@@ -80,7 +81,7 @@ module.exports = function jdbcsListController($scope, JdbcsService, $state, nddK
                 {
                     field: 'banco',
                     title: 'Banco',
-                    width: 160,
+                    width: 200,
                     headerAttributes: { "class": "center" },
                     attributes: { "class": "n-grid-column-align-center" },
                     template: '#:banco#'

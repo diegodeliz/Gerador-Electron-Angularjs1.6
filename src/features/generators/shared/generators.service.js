@@ -11,6 +11,16 @@ module.exports = function generatorService(appConfig, $http) {
                 return result.data;
             });
         },
+        getSocket : function() {
+            return $http.get(appConfig.apiUrl + 'socket').then(function (result) {
+                return result.data;
+            });
+        },
+        getJdbc : function() {
+            return $http.get(appConfig.apiUrl + 'jdbc').then(function (result) {
+                return result.data;
+            });
+        },
         getFile : function(id) {
             return $http.get(appConfig.apiUrl + 'file/' + id).then(function (result) {
                 return result.data;

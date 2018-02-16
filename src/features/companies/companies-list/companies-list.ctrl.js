@@ -65,14 +65,15 @@ module.exports = function companiesListController($scope, CompaniesService, $sta
                 {
                     field: 'nome',
                     title: 'Nome',
-                    width: 480,
-                    headerAttributes: { "class": "left" },
+                    width: 290,
+                    headerAttributes: { "class": "center" },
+                    attributes: { "class": "n-grid-column-align-center" },
                     template: '#:nome#'
                 },
                 {
                     field: 'cnpj',
                     title: 'CNPJ',
-                    width: 120,
+                    width: 200,
                     headerAttributes: { "class": "center" },
                     attributes: { "class": "n-grid-column-align-center" },
                     template: '#:cnpj#'
@@ -80,7 +81,7 @@ module.exports = function companiesListController($scope, CompaniesService, $sta
                 {
                     field: 'ie',
                     title: 'Inscrição Estadual',
-                    width: 120,
+                    width: 200,
                     headerAttributes: { "class": "center" },
                     attributes: { "class": "n-grid-column-align-center" },
                     template: '#:ie#'

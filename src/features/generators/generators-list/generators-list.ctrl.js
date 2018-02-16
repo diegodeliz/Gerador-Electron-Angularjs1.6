@@ -68,12 +68,12 @@ module.exports = function generatorsListController($scope, generatorService, $st
                     template: '#:nomenclatura#'
                 },
                 {
-                    field: 'origemName',
+                    field: 'nota[0].origemName',
                     title: 'Origem',
                     width: 360,
                     headerAttributes: { "class": "center" },
                     attributes: { "class": "n-grid-column-align-center" },
-                    template: '#:origemName#'
+                    template: '#:nota[0].origemName#'
                 },
                 {
                     field: 'serie',

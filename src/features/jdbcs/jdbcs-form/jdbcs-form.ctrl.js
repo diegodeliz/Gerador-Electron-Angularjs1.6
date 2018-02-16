@@ -14,14 +14,27 @@ module.exports = function jdbcFormController($scope) {
         self.getForm = function (element) {
             return $scope.formJdbcs;
         };
+
+        console.log(self.jdbc.captura_retorno);
+
+        if (self.jdbc.captura_retorno != null && self.jdbc.captura_retorno != undefined) {
+            document.getElementById("apaga_saida").disabled = false;
+        } else {
+            document.getElementById("apaga_saida").disabled = true;
+        }
     };
 
     $('#origem').on('change', function (event) {
         self.jdbc.origem = document.getElementById("origem").files[0].path;
     });
 
+    $scope.jdbc = {
+        captura_retorno : "YES",
+        apaga_saida : "YES"
+    };
+
     $('#captura_retorno').on('change', function (event) {
-        if (self.jdbc.captura_retorno === true) {
+        if (self.jdbc.captura_retorno != null && self.jdbc.captura_retorno != undefined) {
             document.getElementById("apaga_saida").disabled = false;
         } else {
             document.getElementById("apaga_saida").disabled = true;

@@ -3,8 +3,8 @@ module.exports = function companiesDetailController($scope, $stateParams, $state
     var self = this;
 
     this.$onInit = function () {
-        self.title = 'Cadastrar Agente';
-        self.subtitle = 'Preencha os campos abaixo para para cadastrar um novo Agente';
+        self.title = 'Cadastrar Empresa';
+        self.subtitle = 'Preencha os campos abaixo para cadastrar uma nova Empresa';
         loadData();
     };
 
@@ -29,7 +29,7 @@ module.exports = function companiesDetailController($scope, $stateParams, $state
         CompaniesService.delete(self.company.id).then(function (data) {
             nddConfirmDialogService.showDialog({
                 title: 'Operação realizada',
-                messageText: 'Cliente excluído com sucesso !',
+                messageText: 'Empresa excluída com sucesso !',
                 buttonConfirmText: 'OK',
                 hideCancel: true
             }, function () {

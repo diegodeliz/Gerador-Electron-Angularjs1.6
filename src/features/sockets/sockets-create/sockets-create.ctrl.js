@@ -3,8 +3,8 @@ module.exports = function socketCreateCtrl($scope, $state, SocketService, nddCon
     var self = this;
     
     this.$onInit = function () {
-        self.title = 'Cadastrar Empresa';
-        self.subtitle = 'Preencha os campos abaixo para para cadastrar uma nova Empresa';
+        self.title = 'Cadastrar Conexão Socket';
+        self.subtitle = 'Preencha os campos abaixo para para cadastrar uma nova Conexão Socket';
     };
 
     this.cancel = function () {
@@ -22,9 +22,9 @@ module.exports = function socketCreateCtrl($scope, $state, SocketService, nddCon
 
             self.isLoading = false;
             nddConfirmDialogService.showDialog({
-                title: 'Empresa foi cadastrada.',
-                messageText: 'Empresa ' + socket.nome + ' cadastrado(a) com sucesso.',
-                buttonConfirmText: 'Ir para Empresas.',
+                title: 'Conexão Socket foi cadastrada.',
+                messageText: 'Conexão Socket ' + socket.nome + ' cadastrado(a) com sucesso.',
+                buttonConfirmText: 'Ir para Conexão Socket.',
                 hideCancel: true,
                 showClose: false,
                 closeByDocument: false,

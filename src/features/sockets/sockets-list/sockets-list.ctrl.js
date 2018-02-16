@@ -25,7 +25,7 @@ module.exports = function socketsListController($scope, SocketService, $state, n
                     Nome: {
                         type: 'string'
                     },
-                    CNPJ: {
+                    IP: {
                         type: 'string'
                     },
                     IE: {
@@ -65,25 +65,26 @@ module.exports = function socketsListController($scope, SocketService, $state, n
                 {
                     field: 'nome',
                     title: 'Nome',
-                    width: 480,
-                    headerAttributes: { "class": "left" },
+                    width: 290,
+                    headerAttributes: { "class": "center" },
+                    attributes: { "class": "n-grid-column-align-center" },
                     template: '#:nome#'
                 },
                 {
-                    field: 'cnpj',
-                    title: 'CNPJ',
-                    width: 120,
+                    field: 'ip',
+                    title: 'IP',
+                    width: 200,
                     headerAttributes: { "class": "center" },
                     attributes: { "class": "n-grid-column-align-center" },
-                    template: '#:cnpj#'
+                    template: '#:ip#'
                 },
                 {
-                    field: 'ie',
-                    title: 'Inscrição Estadual',
-                    width: 120,
+                    field: 'porta',
+                    title: 'Porta',
+                    width: 200,
                     headerAttributes: { "class": "center" },
                     attributes: { "class": "n-grid-column-align-center" },
-                    template: '#:ie#'
+                    template: '#:porta#'
                 }
             ]
         };
@@ -101,13 +102,13 @@ module.exports = function socketsListController($scope, SocketService, $state, n
                     operator: 'contains'
                 },
                 {
-                    prop: 'cnpj',
-                    field: 'cnpj',
+                    prop: 'ip',
+                    field: 'ip',
                     operator: 'contains'
                 },
                 {
-                    prop: 'ie',
-                    field: 'ie',
+                    prop: 'porta',
+                    field: 'porta',
                     operator: 'contains'
                 }
                 ]

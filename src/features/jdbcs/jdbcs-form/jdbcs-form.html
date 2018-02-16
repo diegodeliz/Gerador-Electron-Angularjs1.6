@@ -45,11 +45,11 @@
         <div class="left-align mgTop-25">
             <div id="arquivos">
                 <div class="tipoEnvio">
-                    <input id="captura_retorno" type="checkbox" required ng-model="$ctrl.jdbc.captura_retorno" ng-checked="($ctrl.jdbc.captura_retorno === true)"/>
+                    <input id="captura_retorno" type="checkbox" required ng-model="$ctrl.jdbc.captura_retorno" ng-true-value="'YES'" ng-false-value="'NO'" ng-checked="($ctrl.jdbc.captura_retorno == 'YES')"/>
                     <label class="active" for="captura_retorno">Captura Retorno</label>  
                 </div>
                 <div class="tipoEnvio">
-                    <input id="apaga_saida" type="checkbox" required ng-model="$ctrl.jdbc.apaga_saida" ng-checked="($ctrl.jdbc.apaga_saida === true)"/>
+                    <input id="apaga_saida" type="checkbox" required ng-model="$ctrl.jdbc.apaga_saida" ng-true-value="'YES'" ng-false-value="'NO'" ng-checked="($ctrl.jdbc.apaga_saida == 'YES')"/>
                     <label class="active" for="apaga_saida">Apagar Saída</label>
                 </div>
             </div>

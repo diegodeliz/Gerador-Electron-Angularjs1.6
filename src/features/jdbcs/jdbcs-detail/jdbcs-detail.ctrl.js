@@ -3,8 +3,8 @@ module.exports = function jdbcsDetailController($scope, $stateParams, $state, Jd
     var self = this;
 
     this.$onInit = function () {
-        self.title = 'Cadastrar Agente';
-        self.subtitle = 'Preencha os campos abaixo para para cadastrar um novo Agente';
+        self.title = 'Cadastrar Conexão JDBC';
+        self.subtitle = 'Preencha os campos abaixo para cadastrar uma nova Conexão JDBC';
         loadData();
     };
 
@@ -54,7 +54,7 @@ module.exports = function jdbcsDetailController($scope, $stateParams, $state, Jd
         //ajustado para tratar o objeto JSON corretamente
         var jdbc = JSON.parse(JSON.stringify(jdbc[0]));
         var breadcrumb = {
-            text: jdbc.text,
+            text: jdbc.nome,
             sref: 'app.jdbcs.detail.dashboard',
             params: {
                 id: $stateParams.id

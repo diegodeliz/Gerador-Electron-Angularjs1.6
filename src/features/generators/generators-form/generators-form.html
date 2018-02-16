@@ -1,61 +1,84 @@
 <form name="formGenerators" class="form" novalidate>
 
+    <br />
     <div class="input-field col s8">
-        <select ng-options="x.nome for x in $ctrl.note" ng-model="note" ng-required="true" ng-change="$ctrl.selectNote(note)" options-class="{ 'is-eligible' : eligible, 'not-eligible': !eligible }">
-            <option value="" disabled selected>{{$ctrl.generator.empresa}}</option>
+        <select ng-options="x.nome for x in $ctrl.note" id="select_note" ng-model="note" ng-required="true" ng-change="$ctrl.selectNote(note)"
+            options-class="{ 'is-eligible' : eligible, 'not-eligible': !eligible }">
+            <option value="" disabled selected>{{$ctrl.generator.nota[0].nome}}</option>
         </select>
-        <label class="">Empresa Emissora</label>
-    </div> 
+        <label for="select_note">Empresa Emissora</label>
+    </div>
 
     <div class="col s4">
         <div class="left-align mgTop-25">
             <div id="arquivos">
                 <div class="tipoEnvio">
-                    <input type="checkbox" id="cancelamento" ng-value="1" ng-model="$ctrl.generator.cancelamento" ng-checked="($ctrl.generator.cancelamento == 1)" />
-                    <label for="cancelamento">Cancelamento</label>    
+                    <input type="checkbox" id="cancelamento" ng-value="1" ng-model="$ctrl.generator.cancelamento" ng-checked="($ctrl.generator.cancelamento == 1)"
+                    />
+                    <label for="cancelamento">Cancelamento</label>
                 </div>
                 <div class="tipoEnvio">
-                    <input type="checkbox" id="ped_ajuste" ng-value="9" ng-model="$ctrl.generator.ped_ajuste" ng-checked="($ctrl.generator.ped_ajuste == 9)" />
+                    <input type="checkbox" id="ped_ajuste" ng-value="9" ng-model="$ctrl.generator.ped_ajuste" ng-checked="($ctrl.generator.ped_ajuste == 9)"
+                    />
                     <label for="ped_ajuste">ped_ajuste</label>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="input-field col s8">
+    <div class="input-field col s8" id="divDestino">
         <input id="destino" type="text" required ng-model="$ctrl.generator.destino" />
         <label class="active" for="destino">Caminho de Destino</label>
-      </div>
+    </div>
 
-      <div class="col s4">
+    <div class="input-field col s8" id="divJdbc">
+        <select ng-options="x.nome for x in $ctrl.jdbc" ng-model="jdbc" ng-required="true" ng-change="$ctrl.selectJdbc(jdbc)" options-class="{ 'is-eligible' : eligible, 'not-eligible': !eligible }">
+            <option value="" disabled selected>{{$ctrl.generator.jdbc[0].nome}}</option>
+        </select>
+        <label class="">JDBC</label>
+    </div>
+
+    <div class="input-field col s8" id="divSocket">
+        <select ng-options="x.nome for x in $ctrl.socket" ng-model="socket" ng-required="true" ng-change="$ctrl.selectSocket(socket)"
+            options-class="{ 'is-eligible' : eligible, 'not-eligible': !eligible }">
+            <option value="" disabled selected>{{$ctrl.generator.socket[0].nome}}</option>
+        </select>
+        <label class="">Socket</label>
+    </div>
+
+    <div class="col s4">
         <div class="left-align mgTop-25">
-          <div id="tipoEnvioSelect">
-            <div class="tipoEnvio">
-              <input type="radio" id="envioArquivo" ng-value="1" ng-model="$ctrl.generator.tipoEnvio" ng-checked="($ctrl.generator.tipoEnvio == 1)" />
-              <label for="envioArquivo">Arquivo</label>
+            <div id="tipoEnvioSelect">
+                <div class="tipoEnvio">
+                    <input type="radio" id="envioArquivo" ng-value="1" ng-model="$ctrl.generator.tipoEnvio" ng-checked="($ctrl.generator.tipoEnvio == 1)"
+                    />
+                    <label for="envioArquivo">Arquivo</label>
+                </div>
+                <div class="tipoEnvio">
+                    <input type="radio" id="jdbc" ng-value="2" ng-model="$ctrl.generator.tipoEnvio" />
+                    <label for="jdbc">JDBC</label>
+                </div>
+                <div class="tipoEnvio">
+                    <input type="radio" id="socket" ng-value="3" ng-model="$ctrl.generator.tipoEnvio" />
+                    <label for="socket">Socket</label>
+                </div>
             </div>
-            <div class="tipoEnvio">
-              <input type="radio" id="jdbc" ng-value="2" ng-model="$ctrl.generator.tipoEnvio" />
-              <label for="jdbc">JDBC</label>
-            </div>
-            <div class="tipoEnvio">
-              <input type="radio" id="socket" ng-value="3" ng-model="$ctrl.generator.tipoEnvio" />
-              <label for="socket">Socket</label>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
 
     <div class="col s12 center-align">
         <div class="row">
             <div class="col s4">
                 <div class="left-align mgTop-25">
                     <div id="tipoEmissao">
-                        <input type="radio" id="normal" ng-value="1" ng-model="$ctrl.generator.tipoEmissao" ng-checked="($ctrl.generator.tipoEmissao == 1)" />
-                        <label for="normal">Normal</label>
-
-                        <input type="radio" id="contingencia" ng-value="9" ng-model="$ctrl.generator.tipoEmissao" />
-                        <label for="contingencia">Contingência</label>
+                        <div class="tipoEnvio">
+                            <input type="radio" id="normal" ng-value="1" ng-model="$ctrl.generator.tipoEmissao" ng-checked="($ctrl.generator.tipoEmissao == 1)" />
+                            <label for="normal">Normal</label>
+                        </div>
+                        <div class="tipoEnvio">
+                            <input type="radio" id="contingencia" ng-value="9" ng-model="$ctrl.generator.tipoEmissao" />
+                            <label for="contingencia">Contingência</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -73,7 +96,7 @@
                     <i class="small material-icons">autorenew</i>
                 </a>
             </div>
-            <div class="input-field col s3">
+            <div class="input-field col s2">
                 <input id="serie" type='number' step=1 data-length="3" required ng-model="$ctrl.generator.serie" />
                 <label id="lblSerie" class="active" for="serie">Serie</label>
             </div>
@@ -89,7 +112,7 @@
     </div>
 
     <div class="col s12 center-align">
-        <div class="row">          
+        <div class="row">
             <div class="input-field col s5">
                 <input id="nomenclatura" type="text" required ng-model="$ctrl.generator.nomenclatura" />
                 <label id="lblNomenclatura" class="active" for="nomenclatura">Nomenclatura do Arquivo</label>

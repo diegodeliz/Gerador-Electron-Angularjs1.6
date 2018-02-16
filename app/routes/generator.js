@@ -29,12 +29,8 @@ module.exports = function (app) {
     });
     app.post('/api/generator', function (req, res) {
         var Generator = new GeneratorData({
-            idNota: req.body._idNota,
             nota: req.body.nota,
             tipoEnvio: req.body.tipoEnvio,
-            text: req.body.text,
-            origem: req.body.origem,
-            origemName: req.body.origemName,
             destino: req.body.destino,
             tipoEmissao: req.body.tipoEmissao,
             agentes: req.body.agentes,
@@ -44,18 +40,8 @@ module.exports = function (app) {
             nomenclatura: req.body.nomenclatura,
             fuso: req.body.fuso,
             sleep: req.body.sleep,
-            empresa: req.body.empresa,
-            cnpj: req.body.cnpj,
-            ie: req.body.ie,
-            host: req.body.host,
-            user: req.body.user,
-            password: req.body.password,
-            database: req.body.database,
-            table: req.body.table,
-            ipSocket: req.body.ipSocket,
-            porta: req.body.porta,
-            out: req.body.out,
-            done: false
+            jdbc: req.body.jdbc,
+            socket: req.body.socket,
         });
         Generator.save(function (err) {
             if (err) throw err;
@@ -86,12 +72,8 @@ module.exports = function (app) {
     app.put('/api/generator/:generator_id', (req, res) => {
         GeneratorData.findOneAndUpdate({_id: req.body._id}, {
           $set: {
-            idNota: req.body._idNota,  
             nota: req.body.nota,
-            tipoEnvio: req.body.tipoEnvio,  
-            text: req.body.text,
-            origem: req.body.origem,
-            origemName: req.body.origemName,
+            tipoEnvio: req.body.tipoEnvio,
             destino: req.body.destino,
             tipoEmissao: req.body.tipoEmissao,
             agentes: req.body.agentes,
@@ -101,18 +83,8 @@ module.exports = function (app) {
             nomenclatura: req.body.nomenclatura,
             fuso: req.body.fuso,
             sleep: req.body.sleep,
-            empresa: req.body.empresa,
-            cnpj: req.body.cnpj,
-            ie: req.body.ie,
-            host: req.body.host,
-            user: req.body.user,
-            password: req.body.password,
-            database: req.body.database,
-            table: req.body.table,
-            ipSocket: req.body.ipSocket,
-            porta: req.body.porta,
-            out: req.body.out,
-            done: false
+            jdbc: req.body.jdbc,
+            socket: req.body.socket,
           }
         }, {
           sort: {_id: -1},

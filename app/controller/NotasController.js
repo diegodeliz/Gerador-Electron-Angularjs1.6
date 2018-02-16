@@ -47,10 +47,10 @@ class NotasController {
     run(Generator) {
         id = Generator._id;
         comunicacao = Generator.tipoEnvio;
-        notaBanco = Generator.nota;
+        notaBanco = Generator.nota[0].nota;
         agentes = Generator.agentes;
-        cnpj = Generator.cnpj;
-        ie = Generator.ie;
+        cnpj = Generator.nota[0].cnpj;
+        ie = Generator.nota[0].ie;
         destino = Generator.destino;
         fuso = Generator.fuso;
         fuso = fuso.toString();
@@ -60,14 +60,14 @@ class NotasController {
         sleep = Generator.sleep;
         tipoEmissao = Generator.tipoEmissao;
         numeroInicio = Generator.numero;
-        host = Generator.host;
-        user = Generator.user;
-        password = Generator.password;
-        database = Generator.database;
-        table = Generator.table;
-        ipSocket = Generator.ipSocket;
-        porta = Generator.porta;
-        out = Generator.out;
+        host = Generator.jdbc[0].host;
+        user = Generator.jdbc[0].user;
+        password = Generator.jdbc[0].password;
+        database = Generator.jdbc[0].database;
+        table = Generator.jdbc[0].table;
+        ipSocket = Generator.socket[0].ipSocket;
+        porta = Generator.socket[0].porta;
+        out = Generator.socket[0].out;
 
         this.gerarNotas();
     }

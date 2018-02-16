@@ -16,10 +16,6 @@ module.exports = function socketFormController($scope) {
         };
     };
 
-    $('#origem').on('change', function (event) {
-        self.socket.origem = document.getElementById("origem").files[0].path;
-    });
-
     this.$onChanges = function (changes) {
         if (changes.socket && changes.socket.currentValue) {
             // Fazemos o copy para garantir a imutabilidade do socket

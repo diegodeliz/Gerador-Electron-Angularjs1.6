@@ -619,7 +619,8 @@ titlebar .titlebar__left i {
     border-radius: 0px;
 }
 
-[type="checkbox"] + label:before, [type="checkbox"]:not(.filled-in) + label:after {
+[type="checkbox"]+label:before,
+[type="checkbox"]:not(.filled-in)+label:after {
     border: 2px solid #888;
     border-radius: 0px;
 }
@@ -724,4 +725,14 @@ select.initialized:focus {
 
 .footer-actions {
     text-align: center;
+}
+
+#divJdbc,
+#divSocket {
+    display: none;
+}
+
+select:not([type]):focus:not([readonly]) {
+    border-bottom: 1px solid #26a69a;
+    box-shadow: 0 1px 0 0 #26a69a;
 }

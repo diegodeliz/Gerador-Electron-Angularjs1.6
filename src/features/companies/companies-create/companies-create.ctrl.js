@@ -4,7 +4,7 @@ module.exports = function companyCreateCtrl($scope, $state, CompaniesService, nd
     
     this.$onInit = function () {
         self.title = 'Cadastrar Empresa';
-        self.subtitle = 'Preencha os campos abaixo para para cadastrar uma nova Empresa';
+        self.subtitle = 'Preencha os campos abaixo para cadastrar uma nova Empresa';
     };
 
     this.cancel = function () {

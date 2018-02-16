@@ -3,8 +3,8 @@ module.exports = function jdbcCreateCtrl($scope, $state, JdbcsService, nddConfir
     var self = this;
     
     this.$onInit = function () {
-        self.title = 'Cadastrar Empresa';
-        self.subtitle = 'Preencha os campos abaixo para para cadastrar uma nova Empresa';
+        self.title = 'Cadastrar Conexão JDBC';
+        self.subtitle = 'Preencha os campos abaixo para cadastrar uma nova Conexão JDBC';
     };
 
     this.cancel = function () {
@@ -22,9 +22,9 @@ module.exports = function jdbcCreateCtrl($scope, $state, JdbcsService, nddConfir
 
             self.isLoading = false;
             nddConfirmDialogService.showDialog({
-                title: 'Empresa foi cadastrada.',
-                messageText: 'Empresa ' + jdbc.nome + ' cadastrado(a) com sucesso.',
-                buttonConfirmText: 'Ir para Empresas.',
+                title: 'Conexão JDBC foi cadastrada.',
+                messageText: 'Conexão JDBC ' + jdbc.nome + ' cadastrado(a) com sucesso.',
+                buttonConfirmText: 'Ir para Conexão JDBC.',
                 hideCancel: true,
                 showClose: false,
                 closeByDocument: false,

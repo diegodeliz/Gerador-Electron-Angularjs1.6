@@ -3,8 +3,8 @@ module.exports = function socketsDetailController($scope, $stateParams, $state, 
     var self = this;
 
     this.$onInit = function () {
-        self.title = 'Cadastrar Agente';
-        self.subtitle = 'Preencha os campos abaixo para para cadastrar um novo Agente';
+        self.title = 'Cadastrar Conexão Socket';
+        self.subtitle = 'Preencha os campos abaixo para cadastrar ums novs Conexão Socket';
         loadData();
     };
 
@@ -29,7 +29,7 @@ module.exports = function socketsDetailController($scope, $stateParams, $state, 
         SocketService.delete(self.socket.id).then(function (data) {
             nddConfirmDialogService.showDialog({
                 title: 'Operação realizada',
-                messageText: 'Cliente excluído com sucesso !',
+                messageText: 'Conexão Socket excluída com sucesso !',
                 buttonConfirmText: 'OK',
                 hideCancel: true
             }, function () {
@@ -54,7 +54,7 @@ module.exports = function socketsDetailController($scope, $stateParams, $state, 
         //ajustado para tratar o objeto JSON corretamente
         var socket = JSON.parse(JSON.stringify(socket[0]));
         var breadcrumb = {
-            text: socket.text,
+            text: socket.nome,
             sref: 'app.sockets.detail.dashboard',
             params: {
                 id: $stateParams.id
