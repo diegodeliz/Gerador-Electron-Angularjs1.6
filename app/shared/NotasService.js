@@ -1,7 +1,7 @@
 const GeneratorData = require('../models/generator');
-const EnvioArquivo = require('./senders/EnvioArquivo.js');
-const EnvioBanco = require('./senders/EnvioBanco.js');
-const EnvioSocket = require('./senders/EnvioSocket.js');
+const EnvioArquivo = require('../shared/senders/EnvioArquivo.js');
+const EnvioBanco = require('../shared/senders/EnvioBanco.js');
+const EnvioSocket = require('../shared/senders/EnvioSocket.js');
 
 let dir = './src/data/';
 
@@ -39,14 +39,18 @@ let
     ipSocket,
     porta,
     out,
-    id
+    id,
+    cancelamento,
+    ped_ajuste
     ;
 
-class NotasController {
+class NotasService {
 
     run(Generator) {
         id = Generator._id;
         comunicacao = Generator.tipoEnvio;
+        cancelamento = Generator.cancelamento;
+        ped_ajuste = Generator.ped_ajuste;
         notaBanco = Generator.nota[0].nota;
         agentes = Generator.agentes;
         cnpj = Generator.nota[0].cnpj;
@@ -60,21 +64,25 @@ class NotasController {
         sleep = Generator.sleep;
         tipoEmissao = Generator.tipoEmissao;
         numeroInicio = Generator.numero;
-        host = Generator.jdbc[0].host;
-        user = Generator.jdbc[0].user;
-        password = Generator.jdbc[0].password;
-        database = Generator.jdbc[0].database;
-        table = Generator.jdbc[0].table;
-        ipSocket = Generator.socket[0].ipSocket;
-        porta = Generator.socket[0].porta;
-        out = Generator.socket[0].out;
-
+        if (Generator.tipoEnvio == 2) {
+            host = Generator.jdbc[0].host;
+            user = Generator.jdbc[0].user;
+            password = Generator.jdbc[0].password;
+            database = Generator.jdbc[0].database;
+            table = Generator.jdbc[0].table;
+        } else {
+            ipSocket = Generator.socket[0].ipSocket;
+            porta = Generator.socket[0].porta;
+            out = Generator.socket[0].out;
+        }
         this.gerarNotas();
     }
 
     gerarNotas() {
         if (continua === false) {
             clearTimeout();
+            continua = true;
+            quantidade = 9999999999;
         } else {
             let numNota = i + 1;
             let nota = this.criarNota(i);
@@ -93,19 +101,20 @@ class NotasController {
                 }, parseInt(sleep));
             } else {
                 console.log('Todas as notas foram geradas.');
+                continua = true;
+                quantidade = 9999999999;
             }
         }
     }
 
     pararGerarNotas() {
         continua = false;
-        this.atualizaFormulario();
+        this.atualizaFormulario();    
     }
 
     atualizaFormulario() {
         let ondeParou = parseInt(numeroInicio) + i;
         let numero = ondeParou + 1;
-        continua = true;
         i = 0;
         //salvar os dados
         GeneratorData.findOneAndUpdate({ _id: id }, {
@@ -116,51 +125,6 @@ class NotasController {
                 if (err) return res.send(err)
                 console.log("Atualizado para o número: " + numero);
             })
-    }
-
-    enviarBanco(conteudo, caminho) {
-        const connection = db.createConnection({
-            host: host,
-            user: user,
-            password: password,
-            database: database
-        });
-
-        let encodedData = base64.encode(conteudo);
-        connection.query(
-            `INSERT INTO ${table} (filename, documentdata) VALUES (?, ?)`,
-            [caminho, encodedData],
-            function (err, results, fields) {
-                if (err) console.log(err);
-                connection.close();
-            }
-        );
-    }
-
-    enviarSocket(conteudo, caminho, agenteId) {
-        let client = new net.Socket();
-        let multiplasPortas = parseInt(porta) + parseInt(agenteId) - 1;
-        client.connect(multiplasPortas, ipSocket, () => {
-            console.log(`Conectado ao endereço ${ipSocket}:${multiplasPortas}`);
-            console.log(`${caminho}_TCPMSG;${conteudo}`);
-            client.write(`${caminho}_TCPMSG;${conteudo}`);
-            client.end();
-        });
-        client.on('data', function (data) {
-            console.log(data.toString());
-            let retorno = [];
-            retorno = data.toString().split(/_TCPMSG;/);
-            fs.writeFileSync(out + '\\' + retorno[0], retorno[1]);
-            client.destroy(); // kill client after server's response
-        });
-        client.on('close', function () {
-            console.log('Connection closed');
-        });
-        client.on('error', function (error) {
-            console.log(error);
-            console.log(error.toString());
-            fs.writeFileSync(out + '\\' + 'ERRO_' + caminho, error.toString());
-        });
     }
 
     criarNota(nota) {
@@ -196,6 +160,18 @@ class NotasController {
 
         let nNF = uf + ano + mezinho + cnpj + mod + serie + ("000000000" + numeroNota).slice(-9) + tipoEmissao + codigoAleatorio + 1;
         let digito = this.calculaDV(nNF);
+
+        if (cancelamento == 'YES') {
+            let content = `0000;CANCINUT;${nNF.substring(0, 43)}${digito};Dados incorretos da nota;Dados incorretos da nota`;
+            let novo = destino.replace(/\\in/, '') + '\\can-inu\\';
+            if (!fs.existsSync(novo))
+                fs.mkdirSync(novo);
+
+            console.log(novo);
+            let encoded = base64.encode(content);
+            log.info(`Gerando can-inu ${this.getName(agenteId)}${numeroNota}_ped_can-inu.txt ${encoded}`);
+            fs.writeFileSync(novo + this.getName(agenteId) + numeroNota + '_ped_can-inu.txt', content);
+        }
 
         notaConteudo = notaConteudo.replace('${Id}', "NFe" + `${nNF}`.substring(0, 43) + `${digito}`);
         notaConteudo = notaConteudo.replace('${cNF}', codigoAleatorio);
@@ -271,11 +247,11 @@ class NotasController {
 
         if (comunicacao == 2) {
             let envioBanco = new EnvioBanco();
-            envioBanco.iniciar().then(() => envioBanco.enviar(conteudo, caminho));
+            envioBanco.enviar(conteudo, caminho);
         }
         else if (comunicacao == 3) {
             let envioSocket = new EnvioSocket();
-            envioSocket.iniciar().then(() => envioSocket.enviar(conteudo, caminho, agenteId));
+            envioSocket.enviar(conteudo, caminho, agenteId);
         }
         else
             new EnvioArquivo(destino, caminho, conteudo, agenteId);
@@ -295,16 +271,5 @@ class NotasController {
         return digitoRetorno;
     }
 
-    get agentes() { return agentes; }
-    get destino() { return destino; }
-    get fuso() { return fuso; }
-    get nomenclatura() { return nomenclatura; }
-    get serie() { return serie; }
-    get sleep() { return sleep; }
-    get tipoEmissao() { return tipoEmissao; }
-    get cnpj() { return cnpj; }
-    get ie() { return ie; }
-    get quantidade() { return quantidade; }
-    get numeroInicio() { return numeroInicio; }
 }
-module.exports = NotasController;
+module.exports = NotasService;

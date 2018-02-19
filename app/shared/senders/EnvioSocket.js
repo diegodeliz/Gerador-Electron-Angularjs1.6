@@ -1,4 +1,3 @@
-//const ConfigModel = require('../model/ConfigModel.js');
 const fs = require('fs');
 const net = require('net');
 
@@ -9,19 +8,6 @@ let
     ;
 
 class EnvioSocket {
-/*
-    iniciar() {
-        return new Promise((resolve, reject) => {
-            let configModel = new ConfigModel();
-            configModel.pegarDados().then((dados) => {
-                ipSocket = dados.ipSocket;
-                porta = dados.porta;
-                out = dados.out;
-                return resolve(dados);
-            });
-        });
-    }
-*/
     enviar(conteudo, caminho, agenteId) {
         let client = new net.Socket();
         let multiplasPortas = parseInt(porta) + parseInt(agenteId) - 1;

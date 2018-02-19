@@ -13,13 +13,11 @@
         <div class="left-align mgTop-25">
             <div id="arquivos">
                 <div class="tipoEnvio">
-                    <input type="checkbox" id="cancelamento" ng-value="1" ng-model="$ctrl.generator.cancelamento" ng-checked="($ctrl.generator.cancelamento == 1)"
-                    />
+                    <input type="checkbox" id="cancelamento" ng-model="$ctrl.generator.cancelamento" ng-true-value="'YES'" ng-false-value="'NO'" ng-checked="($ctrl.generator.cancelamento == 'YES')"/>
                     <label for="cancelamento">Cancelamento</label>
                 </div>
                 <div class="tipoEnvio">
-                    <input type="checkbox" id="ped_ajuste" ng-value="9" ng-model="$ctrl.generator.ped_ajuste" ng-checked="($ctrl.generator.ped_ajuste == 9)"
-                    />
+                    <input type="checkbox" id="ped_ajuste" ng-model="$ctrl.generator.ped_ajuste" ng-true-value="'YES'" ng-false-value="'NO'" ng-checked="($ctrl.generator.ped_ajuste == 'YES')"/>
                     <label for="ped_ajuste">ped_ajuste</label>
                 </div>
             </div>

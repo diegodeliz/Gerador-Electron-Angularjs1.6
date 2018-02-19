@@ -1,4 +1,3 @@
-//const ConfigModel = require('../model/ConfigModel.js');
 const db = require('mysql2');
 const base64 = require('base-64');
 const fs = require('fs');
@@ -14,26 +13,8 @@ let
     deletarRegistros,
     capturarRetornos
     ;
+
 class EnvioBanco {
-
-    iniciar() {
-        return new Promise((resolve, reject) => {
-            let configModel = new ConfigModel();
-            configModel.pegarDados().then((dados) => {
-                host = dados.host;
-                user = dados.user;
-                password = dados.password;
-                database = dados.database;
-                table = dados.table;
-                tableOut = dados.tableOut;
-                outBanco = dados.outBanco;
-                capturarRetornos = dados.capturarRetornos;
-                deletarRegistros = dados.deletarRegistros;
-                return resolve(dados);
-            });
-        });
-    }
-
     criarConexao() {
         return db.createConnection({
             host: host,

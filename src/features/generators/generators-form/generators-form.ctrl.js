@@ -29,27 +29,40 @@ module.exports = function generatorFormController($scope, generatorService) {
 
     };
 
+    $scope.generator = {
+        cancelamento : "YES",
+        ped_ajuste : "YES"
+    };
+
     self.$doCheck = function () {
-        document.getElementById("destino").disabled = true;
-        if (self.generator.tipoEnvio == 1)
+        if (self.generator.tipoEnvio == 1) {
             document.getElementById("destino").disabled = false;
+            document.getElementById("divDestino").style.display = "block";
+            document.getElementById("divJdbc").style.display = "none";
+            document.getElementById("divSocket").style.display = "none";
+        } else if (self.generator.tipoEnvio == 2) {
+            document.getElementById("divDestino").style.display = "none";
+            document.getElementById("divJdbc").style.display = "block";
+            document.getElementById("divSocket").style.display = "none";
+        } else {
+            document.getElementById("divDestino").style.display = "none";
+            document.getElementById("divJdbc").style.display = "none";
+            document.getElementById("divSocket").style.display = "block";
+        }
     }
 
     //Tipo de Comunicação - Arquivo / JDBC / Socket
     $('#envioArquivo').on('change', function (e) {
-        document.getElementById("destino").disabled = false;
         document.getElementById("divDestino").style.display = "block";
         document.getElementById("divJdbc").style.display = "none";
         document.getElementById("divSocket").style.display = "none";
     });
     $('#jdbc').on('change', function (e) {
-        document.getElementById("destino").disabled = true;
         document.getElementById("divDestino").style.display = "none";
         document.getElementById("divJdbc").style.display = "block";
         document.getElementById("divSocket").style.display = "none";
     });
     $('#socket').on('change', function (e) {
-        document.getElementById("destino").disabled = true;
         document.getElementById("divDestino").style.display = "none";
         document.getElementById("divJdbc").style.display = "none";
         document.getElementById("divSocket").style.display = "block";
@@ -61,15 +74,15 @@ module.exports = function generatorFormController($scope, generatorService) {
     };
 
     this.selectNote = function (note) {
-        self.generator.nota = note;
+        self.generator.nota[0] = note;
     };
 
     this.selectJdbc = function (jdbc) {
-        self.generator.jdbc = jdbc;
+        self.generator.jdbc[0] = jdbc;
     };
 
     this.selectSocket = function (socket) {
-        self.generator.socket = socket;
+        self.generator.socket[0] = socket;
     };
     
     activate();

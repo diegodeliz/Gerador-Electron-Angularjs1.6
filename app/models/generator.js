@@ -15,6 +15,14 @@ var generator = new Schema({
         type: String,
         default: ''
     },
+    cancelamento: {
+        type: String,
+        default: ''
+    },
+    ped_ajuste: {
+        type: String,
+        default: ''
+    },
     tipoEmissao: {
         type: Number,
         default: '1'

@@ -1,5 +1,5 @@
-const NotasController = require('./NotasController.js');
-let notasController = new NotasController();
+const NotasService = require('../shared/NotasService.js');
+let notasController = new NotasService();
 class GeneratorController {
     static _gerarNotas(Generator) {
         notasController.run(Generator);
